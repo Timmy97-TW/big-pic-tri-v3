@@ -77,37 +77,47 @@ tall. The `@supports` fallback does not catch that case, because the units are s
 catches a browser with no size containment at all, where an arithmetic estimate takes over.
 
 **Measured on this build, which reserves the wiki's own 68px of nav.** Body type is the facts and
-the limits at 14 design pixels; the smallest column is the two things set below them, the link out
-of each card and the ladder's caption and numbers, all at 13.5.
+the limits at 14 design pixels; the smallest column is the link out of each card and the ladder's
+caption and numbers, all at 13.5.
 
 | viewport | the drawing | scale | body type | smallest | scrolls |
 |---|---|---|---|---|---|
-| 1920 × 1080 | 1420 wide | 1.08 | 15.1px | 14.6px | no |
-| 1512 × 850 | 1181 | 0.89 | 12.5px | 12.0px | no |
-| 1440 × 900 | 1288 | 0.98 | 13.7px | 13.2px | no |
-| 1366 × 768 | 1209 | 0.92 | 12.8px | 12.4px | no |
-| 1280 × 720 | 1130 | 0.86 | 12.0px | 11.6px | no |
+| 1920 × 1080 | 1420 wide | 1.08 | 15.1px | 14.5px | no |
+| 1512 × 850 | 1140 | 0.86 | 12.1px | 11.7px | no |
+| 1440 × 900 | 1246 | 0.94 | 13.2px | 12.7px | no |
+| 1366 × 768 | 1171 | 0.89 | 12.4px | 12.0px | no |
+| 1280 × 720 | 1092 | 0.83 | 11.6px | 11.2px | no |
 | 1152 × 800 | 1088 | 0.82 | 11.5px | 11.1px | no |
-| 1151 × 800 | two columns | - | 13px | 13px | no |
-| 1024 × 768 | two columns | - | 13px | 13px | no, with 0px to spare |
-| 768 × 1024 | two columns | - | 13px | 13px | no |
-| 375 × 812 | one column | - | 13px | 13px | **yes, about 1.5 screens** |
+| 768 × 1024 | two columns | - | 13px | 11px | no |
+| 1024 × 768 | two columns | - | 13px | 11px | yes, by about 140px |
+| 1400 × 600 | two columns | - | 13px | 11px | yes |
+| 375 × 812 | one column | - | 13px | 11px | yes, about 1.6 screens |
 
 **Three layouts, and the widths are solved by where type stops being readable.**
 
-- **From 1152px** the triangle is drawn, because that is the width at which the fitted drawing still
-  keeps its smallest type at 11.5px. Below it the type would go under reading size, which is where a
-  figure stops being a figure. V2 turned at 1150 for the same reason.
-- **From 768 to 1151** the same markup becomes two columns: each corner on the left, beside it the
-  joint that leaves it, and the plant closing the right-hand column. Source order does the pairing.
-- **Below 768** it is one column, in the order a reader walks the triangle: corner, joint, corner,
+- **From 1152px wide and about 704px tall** the triangle is drawn. Those are the two numbers at
+  which the fitted canvas still holds its body type at 11.5px. Below either one the type would go
+  under reading size, which is where a figure stops being a figure. V2 turned at 1150 for the same
+  reason, and this one turns on height as well, because a short window shrinks the drawing exactly
+  the way a narrow one does.
+- **From 768px, and on any short window** the same markup becomes two columns: each corner on the
+  left, beside it the joint that leaves it, and the plant closing the right-hand column. Source
+  order does the pairing, so no rule has to name an element.
+- **Below 768px** it is one column, in the order a reader walks the triangle: corner, joint, corner,
   joint, corner, joint, plant. The last joint closes the loop.
 
-**The phone is the honest exception.** On a 375px phone the content is about 1 100px tall and the
-screen is about 740, so it scrolls once. Every way of fixing that costs something the figure should
-not pay: hiding the facts behind a disclosure, dropping the limits, or setting the type at 10px. If
-a strict one-screen phone view is wanted, the way to get it is to cut copy, and the copy to cut is
-the second fact on each corner.
+**Where it scrolls, and why that is the right trade.** The two column layouts are honest lists, and
+a list is as tall as its content. On a 375px phone the content is about 1 200px against roughly 740
+of screen; on a 1024 × 768 window it runs about 140px over. Every way to close that gap costs
+something this figure should not pay: hiding the facts behind a disclosure, dropping the limits, or
+setting the type at 10px. If a strict one-screen phone view is wanted, the way to get it is to cut
+copy, and the copy to cut is the second fact on each corner.
+
+**Two things the fit does not solve.** Page zoom works, because zooming narrows the effective
+viewport and hands the reader the column layout, which is set in rem. A reader who raises only their
+browser's default font size gets no change inside the drawing, because every size in it is a share
+of the drawing's width. And a browser with no size containment falls back to an arithmetic estimate
+of the leftover box, which is close but not measured.
 
 ## Reading it
 

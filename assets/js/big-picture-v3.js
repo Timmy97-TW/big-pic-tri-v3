@@ -107,7 +107,13 @@
   }
 
   /* pointing. One listener, on the container. */
-  tri.addEventListener("pointerover", function (e) { hold(subject(e.target)); });
+  tri.addEventListener("pointerover", function (e) {
+    var on = subject(e.target);
+    /* A mouse crossing the empty ground between objects should not take away
+       what a keyboard reader is holding. */
+    if (!on && tri.contains(document.activeElement)) return;
+    hold(on);
+  });
 
   /* A tap fires pointerover and then, on most touch browsers, pointerleave a
      moment later, which would take the highlight away before it was read. A

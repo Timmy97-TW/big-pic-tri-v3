@@ -222,7 +222,10 @@ section.bp3 {
    of about two lines, and the footing. It is an estimate, so it is only ever
    used where the exact measurement is unavailable. */
 @supports not (container-type: size) {
-  .bp3-tri { width: min(100%, calc((100svh - var(--bp3-nav) - 132px - 124px) * 1320 / 600)); }
+  .bp3-tri {
+    --k: calc(100vw / 1420);
+    width: min(100%, calc((100svh - var(--bp3-nav) - 132px - 124px) * 1320 / 600));
+  }
 }
 
 .bp3-wires {
@@ -624,13 +627,15 @@ section.bp3 {
   .bp3-tri.is-armed .bp3-edge { transform: none; }
 }
 
-/* ═══ narrow and portrait ═════════════════════════════════════════════════
-   Under 62rem the stage would scale the type below reading size, so the same
-   markup re-lays as a column. The DOM order is the walk around the triangle,
-   corner then joint then corner, so the couplings still read as couplings and
-   the last one closes the loop. Still one screen, still nothing hidden. */
+/* ═══ narrow, portrait, and short ═════════════════════════════════════════
+   The drawing needs width AND height to keep its type at reading size: under
+   1152px of width, or under about 704px of viewport height, the fitted canvas
+   puts the smallest type below 11px. Either one sends the same markup into a
+   column. The DOM order is the walk around the triangle, corner then joint
+   then corner, so the couplings still read as couplings and the last one
+   closes the loop. Nothing is hidden in any of the three layouts. */
 
-@media (max-width: 71.999rem) {
+@media (max-width: 71.999rem), (max-height: 43.999rem) {
   section.bp3 { --bp3-pad: var(--sp-4); height: auto; }
 
   .bp3-stage { container-type: normal; display: block; }
@@ -733,7 +738,8 @@ section.bp3 {
    the right, and the plant closing the right-hand column. Source order does
    the pairing, so nothing here has to name an element. */
 
-@media (min-width: 48rem) and (max-width: 71.999rem) {
+@media (min-width: 48rem) and (max-width: 71.999rem),
+       (min-width: 48rem) and (max-height: 43.999rem) {
   .bp3-tri {
     display: grid;
     grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);

@@ -358,7 +358,7 @@ section.bp3 {
 .bp3-hub {
   position: absolute;
   left: calc(468 * var(--k));
-  top: calc(212 * var(--k));
+  top: calc(204 * var(--k));
   width: calc(384 * var(--k));
   display: flex;
   flex-direction: column;
@@ -448,7 +448,7 @@ section.bp3 {
 .bp3-edge--r { left: calc(980 * var(--k)); top: calc(232 * var(--k)); }
 /* the bottom joint sits IN the break in its own wire, the way a drawing breaks
    a dimension line around its figure. Move it and the break moves too. */
-.bp3-edge--b { left: calc(496 * var(--k)); top: calc(477 * var(--k)); width: calc(328 * var(--k)); text-align: center; align-items: center; }
+.bp3-edge--b { left: calc(496 * var(--k)); top: calc(486 * var(--k)); width: calc(328 * var(--k)); text-align: center; align-items: center; }
 
 .bp3-edge__name {
   font-size: calc(14.5 * var(--k));
@@ -476,12 +476,15 @@ section.bp3 {
    and everything it touches takes .is-rel. Nothing is hidden and nothing
    moves; the figure only changes what it emphasises. */
 
+/* Three steps, because with only seven objects on the stage a two-step dim is
+   almost no signal at all: the thing held, the things it reaches, everything
+   else. */
 .bp3-tri.is-holding .bp3-corner,
 .bp3-tri.is-holding .bp3-edge,
-.bp3-tri.is-holding .bp3-hub { opacity: .38; }
+.bp3-tri.is-holding .bp3-hub { opacity: .34; }
 
-.bp3-tri.is-holding .is-lit,
-.bp3-tri.is-holding .is-rel { opacity: 1; }
+.bp3-tri.is-holding .is-rel { opacity: .72; }
+.bp3-tri.is-holding .is-lit { opacity: 1; }
 
 .bp3-corner.is-lit {
   border-color: var(--leaf-500);

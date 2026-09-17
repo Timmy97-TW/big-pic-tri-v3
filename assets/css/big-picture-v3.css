@@ -122,12 +122,28 @@ section.bp3 {
   flex-direction: column;
 }
 
+/* LOAD BEARING: flex: 1 with min-height: 0 is what gives this box a definite
+   height, and container-type: size is what lets the drawing measure it. Change
+   either one and 100cqh collapses, and the drawing renders a few pixels tall.
+   The @supports fallback does not catch that, because the units are supported. */
 .bp3-stage {
   flex: 1 1 auto;
   min-height: 0;
   display: grid;
   place-items: center;
   container-type: size;
+}
+
+/* Past the text column's width the drawing is allowed out of it, because a
+   figure is a drawing and not a page width. 1420 is V2's own ceiling, kept so
+   the two figures sit on the same measure when they are seen together. */
+@media (min-width: 84rem) {
+  .bp3-stage {
+    width: min(1420px, calc(100vw - 80px));
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 .bp3 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -236,7 +252,7 @@ section.bp3 {
 
 .bp3-corner {
   position: absolute;
-  width: calc(372 * var(--k));
+  width: calc(404 * var(--k));
   height: calc(196 * var(--k));
   padding: calc(16 * var(--k)) calc(20 * var(--k)) calc(13 * var(--k));
   display: flex;
@@ -251,9 +267,9 @@ section.bp3 {
               opacity var(--bp3-short) var(--bp3-ease);
 }
 
-.bp3-corner--top   { left: calc(474 * var(--k)); top: 0; }
+.bp3-corner--top   { left: calc(458 * var(--k)); top: 0; }
 .bp3-corner--left  { left: 0;                    top: calc(404 * var(--k)); }
-.bp3-corner--right { left: calc(948 * var(--k)); top: calc(404 * var(--k)); }
+.bp3-corner--right { left: calc(916 * var(--k)); top: calc(404 * var(--k)); }
 
 .bp3-corner__head {
   display: flex;
@@ -285,7 +301,7 @@ section.bp3 {
 
 .bp3-corner__what {
   margin: 0;
-  font-size: calc(14.5 * var(--k));
+  font-size: calc(15 * var(--k));
   line-height: 1.3;
   color: var(--gray-700);
 }
@@ -297,7 +313,7 @@ section.bp3 {
   display: flex;
   flex-direction: column;
   gap: calc(3 * var(--k));
-  font-size: calc(13.5 * var(--k));
+  font-size: calc(14 * var(--k));
   line-height: 1.28;
   color: var(--leaf-900);
   font-variant-numeric: tabular-nums;
@@ -322,7 +338,7 @@ section.bp3 {
   margin: auto 0 0;
   display: flex;
   gap: calc(8 * var(--k));
-  font-size: calc(13.5 * var(--k));
+  font-size: calc(14 * var(--k));
   line-height: 1.28;
   color: var(--rust-700);
 }
@@ -461,7 +477,7 @@ section.bp3 {
 
 .bp3-edge__how {
   margin: 0;
-  font-size: calc(13 * var(--k));
+  font-size: calc(13.5 * var(--k));
   line-height: 1.32;
   color: var(--gray-600);
 }
@@ -584,19 +600,22 @@ section.bp3 {
    the last one closes the loop. Still one screen, still nothing hidden. */
 
 @media (max-width: 61.999rem) {
-  section.bp3 { --bp3-pad: var(--sp-5); height: auto; }
+  section.bp3 { --bp3-pad: var(--sp-4); height: auto; }
 
   .bp3-stage { container-type: normal; display: block; }
 
+  .bp3-head { margin-bottom: 8px; gap: 4px; }
+  .bp3-kicker { margin-bottom: 4px; font-size: .6875rem; }
+  .bp3 h2.band__title { font-size: clamp(1.25rem, 5.6vw, 1.75rem); max-width: none; }
+  .bp3-lede { font-size: .8125rem; line-height: 1.4; }
+
   .bp3-tri {
     width: 100%;
-    height: 100%;
     aspect-ratio: auto;
     container-type: normal;
-    justify-content: center;
     display: flex;
     flex-direction: column;
-    gap: clamp(5px, .9vh, 11px);
+    gap: clamp(5px, .9vh, 10px);
   }
 
   .bp3-wires { display: none; }
@@ -610,28 +629,44 @@ section.bp3 {
   }
 
   .bp3-corner {
-    padding: clamp(8px, 1.2vh, 13px) 14px;
+    padding: 9px 13px 10px;
     border-radius: 10px;
     gap: 3px;
   }
 
-  .bp3-well { width: 26px; height: 26px; }
-  .bp3-well .ico { width: 16px; height: 16px; }
-  .bp3-corner__name { font-size: clamp(.9375rem, 3.6vw, 1.0625rem); }
-  .bp3-corner__what { font-size: clamp(.75rem, 3.1vw, .875rem); }
-  .bp3-facts { font-size: clamp(.6875rem, 3vw, .8125rem); gap: 2px; }
+  .bp3-well { width: 24px; height: 24px; }
+  .bp3-well .ico { width: 15px; height: 15px; }
+  .bp3-corner__name { font-size: .9375rem; }
+  .bp3-corner__what { font-size: .8125rem; line-height: 1.32; }
+  .bp3-facts { font-size: .8125rem; line-height: 1.3; gap: 1px; }
   .bp3-facts li { padding-left: 11px; text-indent: -11px; }
   .bp3-facts li::before { width: 3px; height: 3px; margin-right: 8px; vertical-align: 3px; }
 
   .bp3-open {
-    margin: 3px 0 0;
-    padding-right: 0;
-    font-size: clamp(.6875rem, 3vw, .8125rem);
+    margin: 2px 0 0;
+    font-size: .8125rem;
+    line-height: 1.3;
     gap: 6px;
   }
   .bp3-open::before { width: 4px; height: 4px; margin-top: 4px; }
 
   .bp3-go { margin-left: auto; align-self: center; font-size: .6875rem; }
+
+  /* the joint keeps a rule down its left, and its name runs into the mechanism
+     on one flow of text: a joint is one sentence, and on a phone it should cost
+     the height of one */
+  .bp3-edge {
+    display: block;
+    text-align: left;
+    padding: 1px 0 2px 11px;
+    border-left: 2px solid var(--leaf-200);
+    font-size: .8125rem;
+    line-height: 1.32;
+  }
+  .bp3-edge--l, .bp3-edge--r, .bp3-edge--b { text-align: left; }
+  .bp3-edge__name { display: inline; font-size: inherit; }
+  .bp3-edge__name::after { content: " \00b7 "; color: var(--gray-400); font-weight: 400; }
+  .bp3-edge__how { display: inline; font-size: inherit; }
 
   .bp3-hub {
     flex-direction: row;
@@ -639,33 +674,25 @@ section.bp3 {
     align-items: center;
     text-align: left;
     gap: 4px 10px;
-    padding: 10px 14px;
+    padding: 9px 13px 10px;
     border-radius: 10px;
     background: var(--leaf-900);
   }
-  .bp3-disc { width: 30px; height: 30px; background: transparent; box-shadow: none; }
-  .bp3-disc .ico { width: 24px; height: 24px; }
-  .bp3-hub__name { color: var(--white); font-size: clamp(.9375rem, 3.6vw, 1.0625rem); }
-  .bp3-hub__what { color: var(--leaf-200); font-size: clamp(.6875rem, 3vw, .8125rem); flex: 1 1 100%; }
-  .bp3-hub .bp3-open { color: var(--bp3-rust-pale); flex: 1 1 100%; margin: 0; }
+  .bp3-disc { width: 26px; height: 26px; background: transparent; box-shadow: none; }
+  .bp3-disc .ico { width: 22px; height: 22px; }
+  .bp3-hub__name { color: var(--white); font-size: .9375rem; }
+  .bp3-ladder { width: 150px; margin: 0 0 0 auto; gap: 0; }
+  .bp3-ladder__rule { stroke: #2f5c45; }
+  .bp3-ladder__bar rect { fill: #6f9a83; }
+  .bp3-ladder__bar rect.is-control { fill: var(--leaf-200); }
+  .bp3-ladder__val text { fill: var(--leaf-200); }
+  .bp3-ladder figcaption { color: #9dc0ad; font-size: .6875rem; text-align: right; }
+  .bp3-hub .bp3-open { color: var(--bp3-rust-pale); flex: 1 1 100%; margin: 0; font-size: .8125rem; }
   .bp3-hub .bp3-open::before { background: var(--bp3-rust-pale); }
   .bp3-hub.is-lit .bp3-disc,
   .bp3-hub.is-rel .bp3-disc { box-shadow: none; }
 
-  .bp3-edge {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 2px 8px;
-    text-align: left;
-    padding: 0 0 0 12px;
-    border-left: 2px solid var(--leaf-200);
-  }
-  .bp3-edge--l, .bp3-edge--r, .bp3-edge--b { text-align: left; align-items: baseline; }
-  .bp3-edge__name { font-size: clamp(.6875rem, 3vw, .8125rem); white-space: nowrap; }
-  .bp3-edge__how { font-size: clamp(.6875rem, 3vw, .8125rem); flex: 1 1 14ch; }
-
-  .bp3-foot { margin-top: 10px; font-size: .6875rem; gap: 4px var(--sp-4); }
+  .bp3-foot { margin-top: 8px; padding-top: var(--sp-2); font-size: .6875rem; gap: 3px var(--sp-4); }
 }
 
 /* ═══ short screens ═══════════════════════════════════════════════════════
@@ -677,15 +704,21 @@ section.bp3 {
 
 @media (min-width: 62rem) and (max-height: 53rem) {
   .bp3 { --bp3-pad: var(--sp-4); }
-  .bp3 h2.band__title { font-size: clamp(1.375rem, .9rem + 1vw, 1.625rem); }
-  .bp3-kicker { margin-bottom: var(--sp-1); }
   .bp3-head { margin-bottom: 10px; }
+  .bp3-head__r { padding-bottom: 0; }
+  .bp3-kicker { margin-bottom: var(--sp-1); }
+  /* the column the head sits in already caps the measure, so the heading is
+     let off its 22ch leash and takes one line instead of two */
+  .bp3 h2.band__title { font-size: clamp(1.375rem, .8rem + 1.1vw, 1.625rem); max-width: none; }
   .bp3-lede { font-size: var(--text-xs); line-height: 1.45; }
-  .bp3-foot { margin-top: 8px; padding-top: var(--sp-2); }
+  .bp3-foot { margin-top: 8px; padding-top: var(--sp-2); font-size: .75rem; }
 }
 
-@media (min-width: 62rem) and (max-height: 44rem) {
-  .bp3-head { gap: var(--sp-1); }
+@media (min-width: 62rem) and (max-height: 45rem) {
+  .bp3 { --bp3-pad: var(--sp-3); }
+  .bp3-head { gap: var(--sp-1); margin-bottom: 8px; }
+  .bp3-head { grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); }
   .bp3 h2.band__title { font-size: 1.3125rem; }
-  .bp3-foot p:first-child { max-width: 96ch; }
+  .bp3-foot { margin-top: 6px; }
+}
 }

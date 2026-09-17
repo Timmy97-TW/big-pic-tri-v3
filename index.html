@@ -6,7 +6,7 @@
   <title>The big picture &middot; V3 &middot; ReLeaf &middot; GEMS Taiwan, iGEM 2026</title>
   <meta name="description" content="Three parts of the ReLeaf system, the joint each pair shares, and the plant in the middle. One screen, nothing hidden." />
   <link rel="stylesheet" href="assets/css/tokens.css" />
-  <link rel="stylesheet" href="assets/css/big-picture-v3.css?v=4" />
+  <link rel="stylesheet" href="assets/css/big-picture-v3.css?v=11" />
   <style>
     /* Standalone shell only. The wiki supplies all of this through page.css and
        home.css, so everything in this block is deleted at merge. */
@@ -27,10 +27,10 @@
              border-bottom: 1px solid var(--gray-200); background: var(--gray-50);
              padding: 0 var(--sp-5); font-size: var(--text-xs); color: var(--gray-500); }
     .shell b { color: var(--black); }
-    /* the shell stands in for the 68px site nav the merged section sits under,
-       so the one-screen arithmetic is the same here as it is on the homepage */
+    /* The shell is 34px and the wiki's nav is 68px. The section keeps the
+       68px reserve anyway, so what this page shows is what the homepage will
+       show, and the spare 34px simply sits under the footing. */
     section.bp3 { margin-top: 34px; }
-    .bp3 { --bp3-nav: 34px; }
   </style>
 </head>
 <body>
@@ -118,9 +118,8 @@
         <h2 class="band__title" id="bp3-title">Three parts, and the joints between them.</h2>
       </div>
       <p class="bp3-lede bp3-head__r">Green light switches the cells on, the reactor keeps
-      them in, and the protectant is what they make. Every side of this triangle is one
-      mechanism two corners share, and the plant in the middle is what all three are for.
-      <b>Point at anything to see what it touches.</b></p>
+      them in, and the protectant is what they make. Every side of the triangle is one
+      mechanism two corners share. <b>Point at anything to see what it touches.</b></p>
     </div>
 
     <!-- The DOM order walks the triangle: corner, joint, corner, joint, corner,
@@ -131,17 +130,17 @@
 
       <svg class="bp3-wires" viewBox="0 0 1320 600" aria-hidden="true" focusable="false">
         <!-- the perimeter. One hairline per joint, a dot where it meets a card. -->
-        <line class="bp3-wire" data-wire="opto-reactor"      x1="505" y1="202" x2="352" y2="398" />
-        <line class="bp3-wire" data-wire="reactor-protectant" x1="376" y1="522" x2="496" y2="522" />
-        <line class="bp3-wire" data-wire="reactor-protectant" x1="824" y1="522" x2="944" y2="522" />
-        <line class="bp3-wire" data-wire="protectant-opto"   x1="815" y1="202" x2="968" y2="398" />
+        <line class="bp3-wire" data-wire="opto-reactor"      x1="490" y1="202" x2="388" y2="396" />
+        <line class="bp3-wire" data-wire="reactor-protectant" x1="408" y1="522" x2="496" y2="522" />
+        <line class="bp3-wire" data-wire="reactor-protectant" x1="824" y1="522" x2="912" y2="522" />
+        <line class="bp3-wire" data-wire="protectant-opto"   x1="830" y1="202" x2="932" y2="396" />
         <g>
-          <circle class="bp3-dot" data-wire="opto-reactor"       cx="505" cy="202" r="4.6" />
-          <circle class="bp3-dot" data-wire="opto-reactor"       cx="352" cy="398" r="4.6" />
-          <circle class="bp3-dot" data-wire="reactor-protectant" cx="376" cy="522" r="4.6" />
-          <circle class="bp3-dot" data-wire="reactor-protectant" cx="944" cy="522" r="4.6" />
-          <circle class="bp3-dot" data-wire="protectant-opto"    cx="815" cy="202" r="4.6" />
-          <circle class="bp3-dot" data-wire="protectant-opto"    cx="968" cy="398" r="4.6" />
+          <circle class="bp3-dot" data-wire="opto-reactor"       cx="490" cy="202" r="4.6" />
+          <circle class="bp3-dot" data-wire="opto-reactor"       cx="388" cy="396" r="4.6" />
+          <circle class="bp3-dot" data-wire="reactor-protectant" cx="408" cy="522" r="4.6" />
+          <circle class="bp3-dot" data-wire="reactor-protectant" cx="912" cy="522" r="4.6" />
+          <circle class="bp3-dot" data-wire="protectant-opto"    cx="830" cy="202" r="4.6" />
+          <circle class="bp3-dot" data-wire="protectant-opto"    cx="932" cy="396" r="4.6" />
         </g>
       </svg>
 
@@ -152,10 +151,10 @@
           <span class="bp3-corner__name">Optogenetic control</span>
           <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/engineering/">Engineering &rarr;</a>
         </div>
-        <p class="bp3-corner__what">A green-light switch built into <i>B.&nbsp;subtilis</i>, so the cells make the protectant on command.</p>
+        <p class="bp3-corner__what">A green-light switch built into <i>B.&nbsp;subtilis</i>.</p>
         <ul class="bp3-facts">
-          <li>Four Level&nbsp;1 modules built and sequence-confirmed</li>
-          <li>Our own light array: 520 and 660&nbsp;nm, six conditions, four replicates</li>
+          <li>Four Level&nbsp;1 modules built and sequenced</li>
+          <li>Light array at 520 and 660&nbsp;nm, six conditions</li>
         </ul>
         <p class="bp3-open">No induction run exists anywhere, so the switch is still design intent.</p>
       </article>
@@ -174,10 +173,10 @@
           <span class="bp3-corner__name">Bioreactor</span>
           <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/hardware/">Hardware &rarr;</a>
         </div>
-        <p class="bp3-corner__what">The vessel we built from nothing: the cells stay inside it, what they make goes out.</p>
+        <p class="bp3-corner__what">A hollow-fibre vessel we built from nothing.</p>
         <ul class="bp3-facts">
-          <li>0.2&nbsp;&micro;m hollow fibre, 150&nbsp;cm&sup2; across eight fibres</li>
-          <li>336&nbsp;h of growth logged in line, 2&nbsp;132 readings, no sample drawn</li>
+          <li>0.2&nbsp;&micro;m hollow fibre, 150&nbsp;cm&sup2;, eight fibres</li>
+          <li>2&nbsp;132 readings over 336&nbsp;h, no sample drawn</li>
         </ul>
         <p class="bp3-open">The membrane and the photometer have never run as one machine.</p>
       </article>
@@ -196,10 +195,10 @@
           <span class="bp3-corner__name">Bioprotectant</span>
           <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/peptide-design/">Peptide design &rarr;</a>
         </div>
-        <p class="bp3-corner__what">Three molecules the cells are built to secrete: ACC deaminase, LEA14 and BoPep4.</p>
+        <p class="bp3-corner__what">Three molecules: ACC deaminase, LEA14 and BoPep4.</p>
         <ul class="bp3-facts">
-          <li>Six BoPep4 cassettes ordered, every tag kept off the Asn23 clamp</li>
-          <li>Nine 30&nbsp;ns trajectories behind the binding model</li>
+          <li>Six BoPep4 cassettes ordered, tags off Asn23</li>
+          <li>Nine 30&nbsp;ns trajectories behind the model</li>
         </ul>
         <p class="bp3-open">ACC deaminase is the only one to reach a plant, and that blot read negative.</p>
       </article>
@@ -249,9 +248,9 @@
     </div>
 
     <div class="bp3-foot">
-      <p>The three corners are built objects with our own numbers behind them. The three joints
-      are real in DNA and in hardware, and no measurement has closed one yet: a <i>rust mark</i>
-      is where this project says so.</p>
+      <p>The corners are built objects with our own numbers behind them. The joints are real
+      in DNA and in hardware, and no measurement has closed one yet: a <i>rust mark</i> says
+      where.</p>
       <p><a href="https://timmy97-tw.github.io/releaf-wiki/#bigpicture">The long version, twenty-nine pieces of work &rarr;</a></p>
     </div>
 

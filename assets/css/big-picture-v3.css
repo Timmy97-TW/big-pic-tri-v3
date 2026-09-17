@@ -26,7 +26,7 @@
  * with aspect-ratio pinning the height to it. Everything inside is written as a
  * design pixel times --k, one design pixel expressed in container units, so the
  * whole drawing scales as one object. Overflow is impossible: add a line of
- * text and the drawing gets smaller, it never spills. Below 62rem the same
+ * text and the drawing gets smaller, it never spills. Below 72rem the same
  * markup re-lays as a column, because scaling past that point puts the type
  * under reading size.
  *
@@ -78,7 +78,9 @@
   /* tints the wiki has no token for, declared here and never inline */
   --bp3-leaf-300: #b6d5c3;
   --bp3-leaf-400: #a9c9b8;
-  --bp3-wire:     #93b9a3;
+  /* the joints are meaningful graphics, so the hairline clears 3:1 against
+     white: leaf-500 is 3.3, the paler green it started as was 2.2 */
+  --bp3-wire:     var(--leaf-500);
   --bp3-wire-lit: var(--amber-700);
   --bp3-rust-pale:#f0b49b;
   --bp3-lift:     0 1px 2px rgb(0 0 0 / .06);
@@ -160,7 +162,7 @@ section.bp3 {
   margin-bottom: clamp(10px, 1.7vh, 24px);
 }
 
-@media (min-width: 62rem) {
+@media (min-width: 48rem) {
   .bp3-head {
     grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
     align-items: end;
@@ -599,7 +601,7 @@ section.bp3 {
    corner then joint then corner, so the couplings still read as couplings and
    the last one closes the loop. Still one screen, still nothing hidden. */
 
-@media (max-width: 61.999rem) {
+@media (max-width: 71.999rem) {
   section.bp3 { --bp3-pad: var(--sp-4); height: auto; }
 
   .bp3-stage { container-type: normal; display: block; }
@@ -695,6 +697,29 @@ section.bp3 {
   .bp3-foot { margin-top: 8px; padding-top: var(--sp-2); font-size: .6875rem; gap: 3px var(--sp-4); }
 }
 
+/* ═══ wide enough for two columns, too narrow for the triangle ═══════════
+   Between 48rem and 72rem the column is taller than the screen, so the same
+   markup pairs up: each corner on the left with the joint that leaves it on
+   the right, and the plant closing the right-hand column. Source order does
+   the pairing, so nothing here has to name an element. */
+
+@media (min-width: 48rem) and (max-width: 71.999rem) {
+  .bp3-tri {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+    align-content: start;
+    gap: 6px 22px;
+  }
+
+  .bp3-corner { grid-column: 1; }
+  .bp3-edge   { grid-column: 2; align-self: center; }
+  .bp3-hub    { grid-column: 2; }
+
+  .bp3-corner__name { font-size: 1rem; }
+  .bp3-corner__what, .bp3-facts, .bp3-open, .bp3-edge { font-size: .8125rem; }
+  .bp3-ladder { width: 168px; }
+}
+
 /* ═══ short screens ═══════════════════════════════════════════════════════
    A 768-tall laptop has about 460px for the drawing once the head and the
    footing are out, which scales the figure to four fifths and the smallest
@@ -702,7 +727,7 @@ section.bp3 {
    gives way first: smaller heading, tighter margins, one line of footing. The
    stage takes whatever that leaves, so none of this can cause an overflow. */
 
-@media (min-width: 62rem) and (max-height: 53rem) {
+@media (min-width: 48rem) and (max-height: 53rem) {
   .bp3 { --bp3-pad: var(--sp-4); }
   .bp3-head { margin-bottom: 10px; }
   .bp3-head__r { padding-bottom: 0; }
@@ -714,7 +739,7 @@ section.bp3 {
   .bp3-foot { margin-top: 8px; padding-top: var(--sp-2); font-size: .75rem; }
 }
 
-@media (min-width: 62rem) and (max-height: 45rem) {
+@media (min-width: 48rem) and (max-height: 45rem) {
   .bp3 { --bp3-pad: var(--sp-3); }
   .bp3-head { gap: var(--sp-1); margin-bottom: 8px; }
   .bp3-head { grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); }

@@ -1,0 +1,688 @@
+/* Hallmark · component: homepage section (one-screen system triangle)
+ * genre: editorial · theme: releaf-wiki project system (assets/css/tokens.css, read not forked)
+ * states: default · hover · focus-visible · lit · rel · held · no-js · reduced-motion
+ * motion primitives: 2 (one entrance, one highlight) · contrast: pass
+ * pre-emit critique: P5 H5 E5 S5 R5 V4
+ *
+ * The two carry-overs the slop test flags and the pre-flight rule preserves:
+ * the display face is Inter and the paper is white. Both are locked by the
+ * wiki's own tokens.css, which this file reads rather than forks.
+ *
+ * =============================================================================
+ * ReLeaf: the big picture, V3 — the triangle
+ * -----------------------------------------------------------------------------
+ * V2 ran five noun steps down a vertical trunk with twenty-nine pieces of work
+ * converging on them, and it stood 1500px tall on a 1440 screen. V3 answers one
+ * question instead, and answers it inside one screen: how do the three halves
+ * of this project hold on to each other.
+ *
+ * THE ONE-SCREEN RULE IS STRUCTURAL, NOT A MEDIA QUERY. The figure is a drawing
+ * on a fixed canvas of 1320 x 600 design pixels. The stage is never wider than
+ * the column and never taller than what is left of the viewport once the nav,
+ * the head and the footing are taken out, so its width is
+ *
+ *     min(100%, (100svh - nav - head - frame) * 1320/600)
+ *
+ * with aspect-ratio pinning the height to it. Everything inside is written as a
+ * design pixel times --k, one design pixel expressed in container units, so the
+ * whole drawing scales as one object. Overflow is impossible: add a line of
+ * text and the drawing gets smaller, it never spills. Below 62rem the same
+ * markup re-lays as a column, because scaling past that point puts the type
+ * under reading size.
+ *
+ * THE EDGES ARE THE ARGUMENT. Three cards on their own would be a feature grid
+ * bent into a triangle. What makes this worth drawing is that each pair of
+ * corners is joined by one real mechanism: the promoter and the protectant are
+ * the same plasmid, the 0.2 um membrane is containment and delivery at once,
+ * and the light array answers to the vessel's own telemetry. Each edge carries
+ * its own label and is focusable in its own right, and the tab order walks the
+ * triangle: corner, joint, corner, joint, corner, joint, then the plant.
+ *
+ * RULES THAT SHOULD SURVIVE THE NEXT EDIT
+ *
+ * · NOTHING OPENS. No modal, no drawer, no swapping readout. Every word is in
+ *   the markup before the script runs. Pointing changes emphasis and nothing
+ *   else.
+ * · A LIMIT SITS ON THE SAME CARD AS THE CLAIM IT LIMITS, in the same size of
+ *   type. The rust dot is where a corner says what it has not done. No small
+ *   print anywhere in this figure.
+ * · READABLE WITH NO JAVASCRIPT AND NO MOTION. The entrance's hidden state is
+ *   added by script, never by this stylesheet, and the holding dim only applies
+ *   under .is-holding, which is also script's.
+ * · TWO COLOUR SYSTEMS AND THEY DO NOT OVERLAP. Leaf is structure and amber is
+ *   a lit joint, which is V2's cross-link colour doing the same job. Rust marks
+ *   an open gap and never anything else.
+ * ========================================================================== */
+
+.bp3 {
+  /* ── the icon palette, carried from V2 so one drawing hand serves both ─── */
+  --i-k:  var(--black);
+  --i-p:  var(--white);
+  --i-n:  var(--gray-400);
+  --i-g9: var(--leaf-900);
+  --i-g7: var(--leaf-700);
+  --i-g5: var(--leaf-500);
+  --i-g2: var(--leaf-200);
+  --i-lt: #35e08a;                 /* the 520 nm the circuit answers to */
+  --i-a7: var(--amber-700);
+  --i-a5: #d9a13c;
+  --i-a2: #f2ddb0;
+  --i-a1: var(--amber-100);
+  --i-r7: var(--rust-700);
+  --i-r3: #edc0ae;
+  --i-r1: var(--rust-100);
+  --i-s7: var(--slate-700);
+  --i-s2: #c3d4e2;
+  --i-s1: var(--slate-100);
+
+  /* tints the wiki has no token for, declared here and never inline */
+  --bp3-leaf-300: #b6d5c3;
+  --bp3-leaf-400: #a9c9b8;
+  --bp3-wire:     #93b9a3;
+  --bp3-wire-lit: var(--amber-700);
+  --bp3-rust-pale:#f0b49b;
+  --bp3-lift:     0 1px 2px rgb(0 0 0 / .06);
+  --bp3-lift-lit: 0 2px 10px rgb(20 64 43 / .11);
+
+  --bp3-ease:   cubic-bezier(.16, 1, .3, 1);
+  --bp3-micro:  120ms;
+  --bp3-short:  220ms;
+  --bp3-long:   420ms;
+
+  /* the only measurement this figure takes on faith: the height of the fixed
+     site nav it sits under. Everything else is measured at render. */
+  --bp3-nav:  68px;
+  --bp3-pad:  var(--sp-6);
+}
+
+/* ═══ the section ═════════════════════════════════════════════════════════
+   A column: head, stage, footing. The stage takes what is left, and the
+   drawing measures that and fits itself into it. Nothing here estimates the
+   height of anything. */
+
+section.bp3 {
+  padding-top: var(--bp3-pad);
+  padding-bottom: var(--bp3-pad);
+  /* an explicit height, because the stage below measures itself against it and
+     a container query needs a definite one to measure. The narrow layout puts
+     this back to a floor, where the column is allowed to grow. */
+  height: calc(100svh - var(--bp3-nav));
+  min-height: calc(100svh - var(--bp3-nav));
+  display: flex;
+  flex-direction: column;
+  scroll-margin-top: var(--bp3-nav);
+  background: var(--white);
+}
+
+.bp3 .band__inner {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bp3-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  container-type: size;
+}
+
+.bp3 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.bp3 .ico { display: block; fill: none; }
+
+/* ═══ the head ════════════════════════════════════════════════════════════
+   Two columns from 62rem so the heading and the reading line cost one band of
+   height between them instead of two. */
+
+.bp3-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-2);
+  margin-bottom: clamp(10px, 1.7vh, 24px);
+}
+
+@media (min-width: 62rem) {
+  .bp3-head {
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+    align-items: end;
+    column-gap: var(--sp-7);
+  }
+  .bp3-head__l { grid-column: 1; }
+  .bp3-head__r { grid-column: 2; padding-bottom: .2em; }
+}
+
+.bp3-kicker {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--leaf-700);
+}
+
+.bp3 h2.band__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.125rem);
+  line-height: 1.08;
+  letter-spacing: -.022em;
+  color: var(--leaf-900);
+  max-width: 22ch;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.bp3-lede {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--gray-600);
+  max-width: 60ch;
+}
+
+.bp3-lede b { color: var(--leaf-900); font-weight: 600; }
+
+/* ═══ the stage ═══════════════════════════════════════════════════════════
+   1320 x 600 design pixels. --k is one of them, so every number below is a
+   number you could measure off the drawing. */
+
+.bp3-tri {
+  --k: calc(100cqw / 1320);
+
+  position: relative;
+  /* cqw and cqh here are the STAGE's, so the drawing is fitted to the box the
+     column actually left it. Inside the drawing, --k's cqw is the drawing's
+     own, because .bp3-tri is itself a container. */
+  width: min(100cqw, calc(100cqh * 1320 / 600));
+  aspect-ratio: 1320 / 600;
+  container-type: inline-size;
+}
+
+/* If container queries are missing, fall back to arithmetic: the nav, a head
+   of about two lines, and the footing. It is an estimate, so it is only ever
+   used where the exact measurement is unavailable. */
+@supports not (container-type: size) {
+  .bp3-tri { width: min(100%, calc((100svh - var(--bp3-nav) - 132px - 124px) * 1320 / 600)); }
+}
+
+.bp3-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.bp3-wire {
+  fill: none;
+  stroke: var(--bp3-wire);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  transition: stroke var(--bp3-short) var(--bp3-ease),
+              stroke-width var(--bp3-short) var(--bp3-ease),
+              opacity var(--bp3-short) var(--bp3-ease);
+}
+
+.bp3-dot {
+  fill: var(--bp3-wire);
+  transition: fill var(--bp3-short) var(--bp3-ease),
+              opacity var(--bp3-short) var(--bp3-ease);
+}
+
+/* ═══ a corner ════════════════════════════════════════════════════════════ */
+
+.bp3-corner {
+  position: absolute;
+  width: calc(372 * var(--k));
+  height: calc(196 * var(--k));
+  padding: calc(16 * var(--k)) calc(20 * var(--k)) calc(13 * var(--k));
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--k));
+  background: var(--leaf-50);
+  border: 1px solid var(--leaf-200);
+  border-radius: calc(14 * var(--k));
+  box-shadow: var(--bp3-lift);
+  transition: border-color var(--bp3-short) var(--bp3-ease),
+              box-shadow var(--bp3-short) var(--bp3-ease),
+              opacity var(--bp3-short) var(--bp3-ease);
+}
+
+.bp3-corner--top   { left: calc(474 * var(--k)); top: 0; }
+.bp3-corner--left  { left: 0;                    top: calc(404 * var(--k)); }
+.bp3-corner--right { left: calc(948 * var(--k)); top: calc(404 * var(--k)); }
+
+.bp3-corner__head {
+  display: flex;
+  align-items: center;
+  gap: calc(10 * var(--k));
+}
+
+.bp3-well {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: calc(34 * var(--k));
+  height: calc(34 * var(--k));
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--leaf-200);
+}
+
+.bp3-well .ico { width: calc(21 * var(--k)); height: calc(21 * var(--k)); }
+
+.bp3-corner__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(19.5 * var(--k));
+  line-height: 1.1;
+  letter-spacing: -.014em;
+  color: var(--leaf-900);
+}
+
+.bp3-corner__what {
+  margin: 0;
+  font-size: calc(14.5 * var(--k));
+  line-height: 1.3;
+  color: var(--gray-700);
+}
+
+.bp3-facts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(3 * var(--k));
+  font-size: calc(13.5 * var(--k));
+  line-height: 1.28;
+  color: var(--leaf-900);
+  font-variant-numeric: tabular-nums;
+}
+
+.bp3-facts li { padding-left: calc(13 * var(--k)); text-indent: calc(-13 * var(--k)); }
+
+.bp3-facts li::before {
+  content: "";
+  display: inline-block;
+  width: calc(4 * var(--k));
+  height: calc(4 * var(--k));
+  margin-right: calc(9 * var(--k));
+  border-radius: 50%;
+  background: var(--leaf-500);
+  vertical-align: calc(3.5 * var(--k));
+}
+
+/* the open line. Same size as the claims above it, because a limit set in
+   small print is not a limit. */
+.bp3-open {
+  margin: auto 0 0;
+  display: flex;
+  gap: calc(8 * var(--k));
+  font-size: calc(13.5 * var(--k));
+  line-height: 1.28;
+  color: var(--rust-700);
+}
+
+.bp3-open::before {
+  content: "";
+  flex: none;
+  width: calc(5 * var(--k));
+  height: calc(5 * var(--k));
+  margin-top: calc(5 * var(--k));
+  border-radius: 50%;
+  background: var(--rust-700);
+}
+
+/* the way out of the figure and into the evidence. It sits on the head line,
+   past the name, so the open line under it keeps the full width of the card. */
+.bp3-go {
+  margin-left: auto;
+  align-self: center;
+  font-size: calc(12.5 * var(--k));
+  font-weight: 600;
+  color: var(--leaf-700);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--leaf-200);
+  transition: border-color var(--bp3-micro) var(--bp3-ease);
+}
+
+.bp3-go:hover { border-bottom-color: var(--leaf-500); }
+
+/* ═══ the middle ══════════════════════════════════════════════════════════ */
+
+.bp3-hub {
+  position: absolute;
+  left: calc(468 * var(--k));
+  top: calc(212 * var(--k));
+  width: calc(384 * var(--k));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: calc(5 * var(--k));
+  transition: opacity var(--bp3-short) var(--bp3-ease);
+}
+
+.bp3-disc {
+  display: grid;
+  place-items: center;
+  width: calc(72 * var(--k));
+  height: calc(72 * var(--k));
+  border-radius: 50%;
+  background: var(--leaf-900);
+  box-shadow: 0 0 0 calc(9 * var(--k)) var(--leaf-50);
+  transition: box-shadow var(--bp3-short) var(--bp3-ease);
+}
+
+.bp3-disc .ico { width: calc(38 * var(--k)); height: calc(38 * var(--k)); }
+
+.bp3-hub__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(20 * var(--k));
+  line-height: 1.1;
+  letter-spacing: -.016em;
+  color: var(--leaf-900);
+}
+
+.bp3-hub__what {
+  margin: 0;
+  font-size: calc(14 * var(--k));
+  line-height: 1.3;
+  color: var(--gray-700);
+  font-variant-numeric: tabular-nums;
+}
+
+.bp3-hub .bp3-open { margin: 0; padding-right: 0; text-align: left; }
+
+/* the ladder. The one solid number set this project has on plants, drawn at
+   the size it deserves: four readings, no error bars, because there are no
+   replicates to draw them from. */
+.bp3-ladder {
+  margin: calc(4 * var(--k)) 0 calc(2 * var(--k));
+  width: calc(230 * var(--k));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(2 * var(--k));
+}
+
+.bp3-ladder svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.bp3-ladder__rule { stroke: var(--leaf-200); stroke-width: 1; }
+.bp3-ladder__bar rect { fill: var(--bp3-wire); }
+.bp3-ladder__bar rect.is-control { fill: var(--leaf-700); }
+
+.bp3-ladder__val text {
+  fill: var(--leaf-900);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-anchor: middle;
+  font-variant-numeric: tabular-nums;
+}
+
+.bp3-ladder figcaption {
+  font-size: calc(12.5 * var(--k));
+  line-height: 1.26;
+  color: var(--gray-500);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══ an edge ═════════════════════════════════════════════════════════════ */
+
+.bp3-edge {
+  position: absolute;
+  width: calc(300 * var(--k));
+  display: flex;
+  flex-direction: column;
+  gap: calc(3 * var(--k));
+  transition: opacity var(--bp3-short) var(--bp3-ease);
+}
+
+.bp3-edge--l { left: calc(40 * var(--k));  top: calc(232 * var(--k)); text-align: right; align-items: flex-end; }
+.bp3-edge--r { left: calc(980 * var(--k)); top: calc(232 * var(--k)); }
+/* the bottom joint sits IN the break in its own wire, the way a drawing breaks
+   a dimension line around its figure. Move it and the break moves too. */
+.bp3-edge--b { left: calc(496 * var(--k)); top: calc(477 * var(--k)); width: calc(328 * var(--k)); text-align: center; align-items: center; }
+
+.bp3-edge__name {
+  font-size: calc(14.5 * var(--k));
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -.008em;
+  color: var(--leaf-700);
+  transition: color var(--bp3-short) var(--bp3-ease);
+}
+
+.bp3-edge__how {
+  margin: 0;
+  font-size: calc(13 * var(--k));
+  line-height: 1.32;
+  color: var(--gray-600);
+}
+
+.bp3-edge__how i {
+  font-style: normal;
+  color: var(--rust-700);
+}
+
+/* ═══ pointing ════════════════════════════════════════════════════════════
+   One listener on the stage sets .is-holding, the held object takes .is-lit
+   and everything it touches takes .is-rel. Nothing is hidden and nothing
+   moves; the figure only changes what it emphasises. */
+
+.bp3-tri.is-holding .bp3-corner,
+.bp3-tri.is-holding .bp3-edge,
+.bp3-tri.is-holding .bp3-hub { opacity: .38; }
+
+.bp3-tri.is-holding .is-lit,
+.bp3-tri.is-holding .is-rel { opacity: 1; }
+
+.bp3-corner.is-lit {
+  border-color: var(--leaf-500);
+  box-shadow: var(--bp3-lift-lit);
+}
+
+.bp3-corner.is-rel { border-color: var(--bp3-leaf-400); }
+
+.bp3-edge.is-lit .bp3-edge__name { color: var(--amber-700); }
+.bp3-edge.is-lit .bp3-edge__how  { color: var(--gray-700); }
+
+.bp3-hub.is-lit .bp3-disc,
+.bp3-hub.is-rel .bp3-disc { box-shadow: 0 0 0 calc(9 * var(--k)) var(--leaf-200); }
+
+.bp3-wire.is-lit { stroke: var(--bp3-wire-lit); stroke-width: 2.6; }
+.bp3-dot.is-lit  { fill: var(--bp3-wire-lit); }
+.bp3-tri.is-holding .bp3-wire:not(.is-lit),
+.bp3-tri.is-holding .bp3-dot:not(.is-lit) { opacity: .4; }
+
+/* focus is never animated, and focus runs the same code path as pointing */
+.bp3-corner:focus-visible,
+.bp3-edge:focus-visible,
+.bp3-hub:focus-visible {
+  outline: 2px solid var(--leaf-700);
+  outline-offset: calc(5 * var(--k));
+}
+
+/* ═══ the footing ═════════════════════════════════════════════════════════ */
+
+.bp3-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-2) var(--sp-5);
+  margin-top: clamp(10px, 1.5vh, 22px);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--gray-200);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+  color: var(--gray-500);
+}
+
+.bp3-foot p { margin: 0; max-width: 78ch; }
+.bp3-foot b { color: var(--leaf-900); font-weight: 600; }
+.bp3-foot i { font-style: normal; color: var(--rust-700); font-weight: 600; }
+
+.bp3-foot a {
+  color: var(--leaf-700);
+  text-decoration: none;
+  border-bottom: 1px solid var(--leaf-200);
+  white-space: nowrap;
+}
+
+.bp3-foot a:hover { border-bottom-color: var(--leaf-500); }
+
+/* ═══ the entrance ════════════════════════════════════════════════════════
+   One orchestrated moment, once, and only ever armed by script. */
+
+.bp3-tri.is-armed .bp3-corner,
+.bp3-tri.is-armed .bp3-hub,
+.bp3-tri.is-armed .bp3-edge { opacity: 0; transform: translateY(6px); }
+
+.bp3-tri.is-armed .bp3-wire,
+.bp3-tri.is-armed .bp3-dot { opacity: 0; }
+
+.bp3-tri.is-in .bp3-corner,
+.bp3-tri.is-in .bp3-hub,
+.bp3-tri.is-in .bp3-edge {
+  animation: bp3-in var(--bp3-long) var(--bp3-ease) forwards;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+
+.bp3-tri.is-in .bp3-wire,
+.bp3-tri.is-in .bp3-dot {
+  animation: bp3-ink var(--bp3-long) var(--bp3-ease) forwards;
+  animation-delay: 150ms;
+}
+
+@keyframes bp3-in  { to { opacity: 1; transform: none; } }
+@keyframes bp3-ink { to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bp3 *, .bp3 *::before, .bp3 *::after {
+    transition: none !important;
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+  .bp3-tri.is-armed .bp3-corner,
+  .bp3-tri.is-armed .bp3-hub,
+  .bp3-tri.is-armed .bp3-edge { transform: none; }
+}
+
+/* ═══ narrow and portrait ═════════════════════════════════════════════════
+   Under 62rem the stage would scale the type below reading size, so the same
+   markup re-lays as a column. The DOM order is the walk around the triangle,
+   corner then joint then corner, so the couplings still read as couplings and
+   the last one closes the loop. Still one screen, still nothing hidden. */
+
+@media (max-width: 61.999rem) {
+  section.bp3 { --bp3-pad: var(--sp-5); height: auto; }
+
+  .bp3-stage { container-type: normal; display: block; }
+
+  .bp3-tri {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    container-type: normal;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, .9vh, 11px);
+  }
+
+  .bp3-wires { display: none; }
+
+  .bp3-corner,
+  .bp3-hub,
+  .bp3-edge {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+
+  .bp3-corner {
+    padding: clamp(8px, 1.2vh, 13px) 14px;
+    border-radius: 10px;
+    gap: 3px;
+  }
+
+  .bp3-well { width: 26px; height: 26px; }
+  .bp3-well .ico { width: 16px; height: 16px; }
+  .bp3-corner__name { font-size: clamp(.9375rem, 3.6vw, 1.0625rem); }
+  .bp3-corner__what { font-size: clamp(.75rem, 3.1vw, .875rem); }
+  .bp3-facts { font-size: clamp(.6875rem, 3vw, .8125rem); gap: 2px; }
+  .bp3-facts li { padding-left: 11px; text-indent: -11px; }
+  .bp3-facts li::before { width: 3px; height: 3px; margin-right: 8px; vertical-align: 3px; }
+
+  .bp3-open {
+    margin: 3px 0 0;
+    padding-right: 0;
+    font-size: clamp(.6875rem, 3vw, .8125rem);
+    gap: 6px;
+  }
+  .bp3-open::before { width: 4px; height: 4px; margin-top: 4px; }
+
+  .bp3-go { margin-left: auto; align-self: center; font-size: .6875rem; }
+
+  .bp3-hub {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: left;
+    gap: 4px 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--leaf-900);
+  }
+  .bp3-disc { width: 30px; height: 30px; background: transparent; box-shadow: none; }
+  .bp3-disc .ico { width: 24px; height: 24px; }
+  .bp3-hub__name { color: var(--white); font-size: clamp(.9375rem, 3.6vw, 1.0625rem); }
+  .bp3-hub__what { color: var(--leaf-200); font-size: clamp(.6875rem, 3vw, .8125rem); flex: 1 1 100%; }
+  .bp3-hub .bp3-open { color: var(--bp3-rust-pale); flex: 1 1 100%; margin: 0; }
+  .bp3-hub .bp3-open::before { background: var(--bp3-rust-pale); }
+  .bp3-hub.is-lit .bp3-disc,
+  .bp3-hub.is-rel .bp3-disc { box-shadow: none; }
+
+  .bp3-edge {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 8px;
+    text-align: left;
+    padding: 0 0 0 12px;
+    border-left: 2px solid var(--leaf-200);
+  }
+  .bp3-edge--l, .bp3-edge--r, .bp3-edge--b { text-align: left; align-items: baseline; }
+  .bp3-edge__name { font-size: clamp(.6875rem, 3vw, .8125rem); white-space: nowrap; }
+  .bp3-edge__how { font-size: clamp(.6875rem, 3vw, .8125rem); flex: 1 1 14ch; }
+
+  .bp3-foot { margin-top: 10px; font-size: .6875rem; gap: 4px var(--sp-4); }
+}
+
+/* ═══ short screens ═══════════════════════════════════════════════════════
+   A 768-tall laptop has about 460px for the drawing once the head and the
+   footing are out, which scales the figure to four fifths and the smallest
+   type under reading size. So on short screens the writing around the drawing
+   gives way first: smaller heading, tighter margins, one line of footing. The
+   stage takes whatever that leaves, so none of this can cause an overflow. */
+
+@media (min-width: 62rem) and (max-height: 53rem) {
+  .bp3 { --bp3-pad: var(--sp-4); }
+  .bp3 h2.band__title { font-size: clamp(1.375rem, .9rem + 1vw, 1.625rem); }
+  .bp3-kicker { margin-bottom: var(--sp-1); }
+  .bp3-head { margin-bottom: 10px; }
+  .bp3-lede { font-size: var(--text-xs); line-height: 1.45; }
+  .bp3-foot { margin-top: 8px; padding-top: var(--sp-2); }
+}
+
+@media (min-width: 62rem) and (max-height: 44rem) {
+  .bp3-head { gap: var(--sp-1); }
+  .bp3 h2.band__title { font-size: 1.3125rem; }
+  .bp3-foot p:first-child { max-width: 96ch; }
+}

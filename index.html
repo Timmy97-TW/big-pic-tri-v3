@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The big picture &middot; V3 &middot; ReLeaf &middot; GEMS Taiwan, iGEM 2026</title>
+  <meta name="description" content="Three parts of the ReLeaf system, the joint each pair shares, and the plant in the middle. One screen, nothing hidden." />
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/big-picture-v3.css?v=1" />
+  <style>
+    /* Standalone shell only. The wiki supplies all of this through page.css and
+       home.css, so everything in this block is deleted at merge. */
+    html, body { overflow-x: clip; }
+    body { margin: 0; font-family: var(--font-body); font-size: var(--text-base);
+           line-height: 1.68; color: var(--black); background: var(--white);
+           -webkit-font-smoothing: antialiased; }
+    *, *::before, *::after { box-sizing: border-box; }
+    a { color: var(--leaf-700); }
+    .band { padding: var(--sp-8) 0; }
+    .band__inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--sp-5); }
+    @media (min-width: 640px) { .band__inner { padding: 0 var(--sp-6); } }
+    h2.band__title { margin: 0 0 var(--sp-5); font-family: var(--font-display);
+                     font-size: var(--text-h2); font-weight: 700; line-height: 1.14;
+                     letter-spacing: -.018em; color: var(--leaf-900); max-width: 26ch; }
+    .shell { position: fixed; inset: 0 0 auto; z-index: 3; height: 34px;
+             display: flex; align-items: center; gap: .6rem;
+             border-bottom: 1px solid var(--gray-200); background: var(--gray-50);
+             padding: 0 var(--sp-5); font-size: var(--text-xs); color: var(--gray-500); }
+    .shell b { color: var(--black); }
+    /* the shell stands in for the 68px site nav the merged section sits under,
+       so the one-screen arithmetic is the same here as it is on the homepage */
+    section.bp3 { margin-top: 34px; }
+    .bp3 { --bp3-nav: 34px; }
+  </style>
+</head>
+<body>
+
+<!-- Standalone development shell. Delete this element, the block above and the
+     rule that offsets the section when merging into wiki/index.html. -->
+<div class="shell"><b>ReLeaf &middot; the big picture, V3</b> &nbsp;standalone build, drawn on the wiki&rsquo;s own tokens</div>
+
+<!-- =============================================================================
+     THE BIG PICTURE, V3 — THE TRIANGLE.
+
+     Reads assets/css/big-picture-v3.css and assets/js/big-picture-v3.js.
+     Four rules govern every change:
+
+       1. ONE SCREEN, STRUCTURALLY. The drawing is a 1320x600 canvas scaled to
+          whatever the viewport has left. Adding a line of text makes the
+          drawing smaller; it never makes the section taller.
+       2. THE EDGES ARE THE ARGUMENT. Three corners alone would be a feature
+          grid bent into a triangle. Each pair of corners shares one real
+          mechanism, and that mechanism is a labelled, focusable object.
+       3. NOTHING OPENS, and nothing is hidden. Pointing at a corner lights the
+          two joints it sits on and the corners on the far side of them.
+       4. EVERY LIMIT SITS ON THE CARD THAT MAKES THE CLAIM, at the same size.
+          A rust mark is a gap this project has not closed. Do not tidy one
+          away, and never replace one with a guess.
+     ========================================================================== -->
+
+<section class="band bp3" id="bigpicture" aria-labelledby="bp3-title">
+  <div class="band__inner">
+
+    <svg class="sprite" aria-hidden="true" focusable="false"><defs>
+
+      <!-- green light. The LED can and its cone, at 520 nm. -->
+      <symbol id="i-led" viewBox="0 0 32 32">
+        <path d="M12.6 16.2 28.4 6.4v19.6z" fill="var(--i-lt)" opacity=".34"/>
+        <g stroke="var(--i-lt)" stroke-width="2.2" stroke-linecap="round">
+          <path d="M17.6 16.2h3.6M22 11.8h3.4M22 20.6h3.4"/>
+        </g>
+        <rect x="3" y="11.2" width="8.4" height="10" rx="2" fill="var(--i-k)"/>
+        <ellipse cx="12.2" cy="16.2" rx="2.2" ry="4.6" fill="var(--i-lt)"/>
+      </symbol>
+
+      <!-- the reactor: base plate, cartridge column, carboy, pump head, and the
+           tubing loop with its LED strip over the top -->
+      <symbol id="i-reactor" viewBox="0 0 32 32">
+        <path d="M6.4 12.6V7.2h17.2a2.6 2.6 0 0 1 2.6 2.6v6.4" fill="none" stroke="var(--i-g5)" stroke-width="1.8" stroke-linecap="round"/>
+        <g fill="var(--i-lt)">
+          <circle cx="10.4" cy="7.2" r="1.1"/><circle cx="15" cy="7.2" r="1.1"/><circle cx="19.6" cy="7.2" r="1.1"/>
+        </g>
+        <rect x="4.2" y="12" width="5" height="11.4" rx="1.2" fill="var(--i-s7)"/>
+        <path d="M11.6 23.4v-5.2c0-1.4 1.3-1.8 1.3-2.8v-1.2h3.6v1.2c0 1 1.3 1.4 1.3 2.8v5.2z" fill="var(--i-r3)" stroke="var(--i-r7)" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="23.4" cy="19" r="4.2" fill="var(--i-a5)" stroke="var(--i-a7)" stroke-width="1.6"/>
+        <circle cx="23.4" cy="19" r="1.3" fill="var(--i-a7)"/>
+        <rect x="1.6" y="23.4" width="28.8" height="4.4" rx="1.8" fill="var(--i-k)"/>
+      </symbol>
+
+      <!-- the molecule: the docking pose, ligand at the mouth of the cleft -->
+      <symbol id="i-peptide" viewBox="0 0 32 32">
+        <path d="M14.4 7.6a9 9 0 1 1 0 16.8v-4.6a4.4 4.4 0 1 0 0-7.6z" fill="var(--i-s2)"/>
+        <path d="M14.4 7.6a9 9 0 1 1 0 16.8" fill="none" stroke="var(--i-s7)" stroke-width="1.8" stroke-linecap="round"/>
+        <g stroke="var(--i-g7)" stroke-width="1.8" stroke-linecap="round">
+          <path d="M7.6 12.6 11 15.4M7.6 19.4 11 16.6"/>
+        </g>
+        <circle cx="12.4" cy="16" r="2.8" fill="var(--i-lt)"/>
+        <circle cx="6.2" cy="11.6" r="2.2" fill="var(--i-g7)"/>
+        <circle cx="6.2" cy="20.4" r="2.2" fill="var(--i-g7)"/>
+      </symbol>
+
+      <!-- the difference the whole project is for: two plants on one soil
+           line, the one that got the protectant and the one that did not. -->
+      <symbol id="i-rescue" viewBox="0 0 32 32">
+        <rect x="2.6" y="26.4" width="26.8" height="3" rx="1.4" fill="var(--i-n)"/>
+        <path d="M9.6 26.4v-6.2" stroke="var(--i-a7)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9.6 22.4c-3.1 1-5-.1-5.6-3.2 3-.8 5 .3 5.6 3.2z" fill="var(--i-a5)"/>
+        <path d="M22 26.4V13.6" stroke="var(--i-g7)" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M22 18.4c-3.2 0-4.9-1.8-4.9-4.9 3 0 4.9 1.7 4.9 4.9z" fill="var(--i-g5)"/>
+        <path d="M22 21c3 0 4.6-1.6 4.6-4.4-2.8 0-4.6 1.6-4.6 4.4z" fill="var(--i-g7)"/>
+      </symbol>
+
+    </defs></svg>
+
+    <div class="bp3-head">
+      <div class="bp3-head__l">
+        <p class="bp3-kicker">The big picture</p>
+        <h2 class="band__title" id="bp3-title">Three parts, and the joints between them.</h2>
+      </div>
+      <p class="bp3-lede bp3-head__r">Green light switches the cells on, the reactor keeps
+      them in, and the protectant is what they make. Every side of this triangle is one
+      mechanism two corners share, and the plant in the middle is what all three are for.
+      <b>Point at anything to see what it touches.</b></p>
+    </div>
+
+    <!-- The DOM order walks the triangle: corner, joint, corner, joint, corner,
+         joint, then the plant. That is also the tab order, and it is what the
+         column layout under 62rem stacks, so the last joint closes the loop. -->
+    <div class="bp3-stage">
+    <div class="bp3-tri" id="bp3-tri" role="group" aria-label="The ReLeaf system as three parts, the joint each pair shares, and the plant at the centre">
+
+      <svg class="bp3-wires" viewBox="0 0 1320 600" aria-hidden="true" focusable="false">
+        <!-- the perimeter. One hairline per joint, a dot where it meets a card. -->
+        <line class="bp3-wire" data-wire="opto-reactor"      x1="505" y1="202" x2="352" y2="398" />
+        <line class="bp3-wire" data-wire="reactor-protectant" x1="376" y1="502" x2="496" y2="502" />
+        <line class="bp3-wire" data-wire="reactor-protectant" x1="824" y1="502" x2="944" y2="502" />
+        <line class="bp3-wire" data-wire="protectant-opto"   x1="815" y1="202" x2="968" y2="398" />
+        <g>
+          <circle class="bp3-dot" data-wire="opto-reactor"       cx="505" cy="202" r="4.6" />
+          <circle class="bp3-dot" data-wire="opto-reactor"       cx="352" cy="398" r="4.6" />
+          <circle class="bp3-dot" data-wire="reactor-protectant" cx="376" cy="502" r="4.6" />
+          <circle class="bp3-dot" data-wire="reactor-protectant" cx="944" cy="502" r="4.6" />
+          <circle class="bp3-dot" data-wire="protectant-opto"    cx="815" cy="202" r="4.6" />
+          <circle class="bp3-dot" data-wire="protectant-opto"    cx="968" cy="398" r="4.6" />
+        </g>
+      </svg>
+
+      <!-- ── corner · optogenetic control ─────────────────────────────────── -->
+      <article class="bp3-corner bp3-corner--top" data-node="opto" tabindex="0" style="--i:0">
+        <div class="bp3-corner__head">
+          <span class="bp3-well"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-led"/></svg></span>
+          <span class="bp3-corner__name">Optogenetic control</span>
+          <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/engineering/">Engineering &rarr;</a>
+        </div>
+        <p class="bp3-corner__what">A green-light switch built into <i>B.&nbsp;subtilis</i>, so the cells make the protectant on command.</p>
+        <ul class="bp3-facts">
+          <li>Four Level&nbsp;1 modules built and sequence-confirmed</li>
+          <li>Our own light array: 520 and 660&nbsp;nm, six conditions, four replicates</li>
+        </ul>
+        <p class="bp3-open">No induction run exists anywhere, so the switch is still design intent.</p>
+      </article>
+
+      <!-- ── joint · the array and the vessel ─────────────────────────────── -->
+      <div class="bp3-edge bp3-edge--l" data-edge="opto-reactor" data-ends="opto reactor" tabindex="0" style="--i:1">
+        <span class="bp3-edge__name">The array and the vessel</span>
+        <p class="bp3-edge__how">Green light on one side, the vessel&rsquo;s own telemetry at 1&nbsp;Hz on the other.
+        <i>The reactor&rsquo;s lamp is not built, and the loop has never closed.</i></p>
+      </div>
+
+      <!-- ── corner · bioreactor ──────────────────────────────────────────── -->
+      <article class="bp3-corner bp3-corner--left" data-node="reactor" tabindex="0" style="--i:2">
+        <div class="bp3-corner__head">
+          <span class="bp3-well"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-reactor"/></svg></span>
+          <span class="bp3-corner__name">Bioreactor</span>
+          <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/hardware/">Hardware &rarr;</a>
+        </div>
+        <p class="bp3-corner__what">The vessel we built from nothing: the cells stay inside it, what they make goes out.</p>
+        <ul class="bp3-facts">
+          <li>0.2&nbsp;&micro;m hollow fibre, 150&nbsp;cm&sup2; across eight fibres</li>
+          <li>336&nbsp;h of growth logged in line, 2&nbsp;132 readings, no sample drawn</li>
+        </ul>
+        <p class="bp3-open">The membrane and the photometer have never run as one machine.</p>
+      </article>
+
+      <!-- ── joint · cells stay, protein leaves ───────────────────────────── -->
+      <div class="bp3-edge bp3-edge--b" data-edge="reactor-protectant" data-ends="reactor protectant" tabindex="0" style="--i:3">
+        <span class="bp3-edge__name">Cells stay, protein leaves</span>
+        <p class="bp3-edge__how">One 0.2&nbsp;&micro;m pore holds the rods in and passes a 37.6&nbsp;kDa enzyme.
+        <i>Shell fluid plated clean on 6&nbsp;June; nothing has been measured crossing.</i></p>
+      </div>
+
+      <!-- ── corner · bioprotectant ───────────────────────────────────────── -->
+      <article class="bp3-corner bp3-corner--right" data-node="protectant" tabindex="0" style="--i:4">
+        <div class="bp3-corner__head">
+          <span class="bp3-well"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-peptide"/></svg></span>
+          <span class="bp3-corner__name">Bioprotectant</span>
+          <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/peptide-design/">Peptide design &rarr;</a>
+        </div>
+        <p class="bp3-corner__what">Three molecules the cells are built to secrete: ACC deaminase, LEA14 and BoPep4.</p>
+        <ul class="bp3-facts">
+          <li>Six BoPep4 cassettes ordered, every tag kept off the Asn23 clamp</li>
+          <li>Nine 30&nbsp;ns trajectories behind the binding model</li>
+        </ul>
+        <p class="bp3-open">ACC deaminase is the only one to reach a plant, and that blot read negative.</p>
+      </article>
+
+      <!-- ── joint · the switch and the cargo ─────────────────────────────── -->
+      <div class="bp3-edge bp3-edge--r" data-edge="protectant-opto" data-ends="protectant opto" tabindex="0" style="--i:5">
+        <span class="bp3-edge__name">The switch and the cargo</span>
+        <p class="bp3-edge__how">The promoter the light drives and the protectant it makes are one plasmid, sequenced clean on 22&nbsp;July.
+        <i>It has never been induced.</i></p>
+      </div>
+
+      <!-- ── the middle ───────────────────────────────────────────────────── -->
+      <div class="bp3-hub" data-node="plant" tabindex="0" style="--i:6">
+        <span class="bp3-disc"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-rescue"/></svg></span>
+        <span class="bp3-hub__name">Plant protection</span>
+
+        <!-- Our own salt ladder: experiment set 6, day 6, 3 August 2026. Four
+             single readings. n is recorded nowhere and there is no replicate,
+             so this is drawn as four readings and must never become means with
+             error bars. Bar heights are proportional to the millimetres, which
+             is why the 150 mM bar is a hairline: at 1.8 mm there is almost
+             nothing left to draw. The number above each bar is what makes the
+             hairline readable. -->
+        <figure class="bp3-ladder">
+          <svg viewBox="0 0 230 50" aria-hidden="true" focusable="false">
+            <line class="bp3-ladder__rule" x1="4" y1="40.5" x2="226" y2="40.5" />
+            <g class="bp3-ladder__bar">
+              <rect class="is-control" x="16" y="12" width="30" height="28" />
+              <rect x="72"  y="27.01" width="30" height="12.99" />
+              <rect x="128" y="35.89" width="30" height="4.11" />
+              <rect x="184" y="39.33" width="30" height=".67" />
+            </g>
+            <g class="bp3-ladder__val">
+              <text x="31"  y="8">75.0</text>
+              <text x="87"  y="23">34.8</text>
+              <text x="143" y="31.9">11.0</text>
+              <text x="199" y="35.3">1.8</text>
+            </g>
+          </svg>
+          <figcaption>Root length in mm at 0, 75, 100 and 150&nbsp;mM NaCl. Four single readings.</figcaption>
+        </figure>
+
+        <p class="bp3-open">No protectant has rescued a plant yet.</p>
+      </div>
+
+    </div>
+    </div>
+
+    <div class="bp3-foot">
+      <p>The three corners are built objects with our own numbers behind them. The three joints
+      are real in DNA and in hardware, and no measurement has closed one yet: a <i>rust mark</i>
+      is where this project says so.</p>
+      <p><a href="https://timmy97-tw.github.io/releaf-wiki/#bigpicture">The long version, twenty-nine pieces of work &rarr;</a></p>
+    </div>
+
+  </div>
+</section>
+
+<script src="assets/js/big-picture-v3.js"></script>
+</body>
+</html>

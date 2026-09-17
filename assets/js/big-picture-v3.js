@@ -1,5 +1,5 @@
 /* =============================================================================
-   ReLeaf: the big picture, V3 — the triangle
+   ReLeaf: the big picture, V3 · the triangle
    -----------------------------------------------------------------------------
    Two jobs, and nothing else. The figure is complete and readable before this
    file runs; if it never runs, the only thing lost is the emphasis.

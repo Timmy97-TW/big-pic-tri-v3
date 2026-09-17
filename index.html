@@ -6,7 +6,7 @@
   <title>The big picture &middot; V3 &middot; ReLeaf &middot; GEMS Taiwan, iGEM 2026</title>
   <meta name="description" content="Three parts of the ReLeaf system, the joint each pair shares, and the plant in the middle. One screen, nothing hidden." />
   <link rel="stylesheet" href="assets/css/tokens.css" />
-  <link rel="stylesheet" href="assets/css/big-picture-v3.css?v=15" />
+  <link rel="stylesheet" href="assets/css/big-picture-v3.css?v=18" />
   <style>
     /* Standalone shell only. The wiki supplies all of this through page.css and
        home.css, so everything in this block is deleted at merge. */
@@ -40,7 +40,7 @@
 <div class="shell"><b>ReLeaf &middot; the big picture, V3</b> &nbsp;standalone build, drawn on the wiki&rsquo;s own tokens</div>
 
 <!-- =============================================================================
-     THE BIG PICTURE, V3 — THE TRIANGLE.
+     THE BIG PICTURE, V3 · THE TRIANGLE.
 
      Reads assets/css/big-picture-v3.css and assets/js/big-picture-v3.js.
      Four rules govern every change:
@@ -48,8 +48,7 @@
        1. ONE SCREEN, STRUCTURALLY. The drawing is a 1320x600 canvas scaled to
           whatever the viewport has left. Adding a line of text makes the
           drawing smaller; it never makes the section taller.
-       2. THE EDGES ARE THE ARGUMENT. Three corners alone would be a feature
-          grid bent into a triangle. Each pair of corners shares one real
+       2. THE EDGES ARE THE ARGUMENT. Each pair of corners shares one real
           mechanism, and that mechanism is a labelled, focusable object.
        3. NOTHING OPENS, and nothing is hidden. Pointing at a corner lights the
           two joints it sits on and the corners on the far side of them.
@@ -118,8 +117,8 @@
         <h2 class="band__title" id="bp3-title">Three parts, and the joints between them.</h2>
       </div>
       <p class="bp3-lede bp3-head__r">Green light switches the cells on, the reactor keeps
-      them in, and the protectant is what they make. Every side of the triangle is one
-      mechanism two corners share. <b>Point at anything to see what it touches.</b></p>
+      them in, and the protectant is what they make. Each pair of them shares one mechanism,
+      and it is named between them. <b>Point at anything to see what it touches.</b></p>
     </div>
 
     <!-- The DOM order walks the triangle: corner, joint, corner, joint, corner,
@@ -131,14 +130,14 @@
       <svg class="bp3-wires" viewBox="0 0 1320 600" aria-hidden="true" focusable="false">
         <!-- the perimeter. One hairline per joint, a dot where it meets a card. -->
         <line class="bp3-wire" data-wire="opto-reactor"      x1="490" y1="202" x2="388" y2="396" />
-        <line class="bp3-wire" data-wire="reactor-protectant" x1="408" y1="522" x2="496" y2="522" />
-        <line class="bp3-wire" data-wire="reactor-protectant" x1="824" y1="522" x2="912" y2="522" />
+        <line class="bp3-wire" data-wire="reactor-protectant" x1="408" y1="530" x2="496" y2="530" />
+        <line class="bp3-wire" data-wire="reactor-protectant" x1="824" y1="530" x2="912" y2="530" />
         <line class="bp3-wire" data-wire="protectant-opto"   x1="830" y1="202" x2="932" y2="396" />
         <g>
           <circle class="bp3-dot" data-wire="opto-reactor"       cx="490" cy="202" r="4.6" />
           <circle class="bp3-dot" data-wire="opto-reactor"       cx="388" cy="396" r="4.6" />
-          <circle class="bp3-dot" data-wire="reactor-protectant" cx="408" cy="522" r="4.6" />
-          <circle class="bp3-dot" data-wire="reactor-protectant" cx="912" cy="522" r="4.6" />
+          <circle class="bp3-dot" data-wire="reactor-protectant" cx="408" cy="530" r="4.6" />
+          <circle class="bp3-dot" data-wire="reactor-protectant" cx="912" cy="530" r="4.6" />
           <circle class="bp3-dot" data-wire="protectant-opto"    cx="830" cy="202" r="4.6" />
           <circle class="bp3-dot" data-wire="protectant-opto"    cx="932" cy="396" r="4.6" />
         </g>
@@ -173,7 +172,7 @@
           <span class="bp3-corner__name">Bioreactor</span>
           <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/hardware/">Hardware &rarr;</a>
         </div>
-        <p class="bp3-corner__what">A hollow-fibre vessel we built from nothing.</p>
+        <p class="bp3-corner__what">A vessel that grows the cells and holds them.</p>
         <ul class="bp3-facts">
           <li>0.2&nbsp;&micro;m hollow fibre, 150&nbsp;cm&sup2;, eight fibres</li>
           <li>2&nbsp;132 readings over 336&nbsp;h, no sample drawn</li>
@@ -197,10 +196,10 @@
         </div>
         <p class="bp3-corner__what">Three molecules: ACC deaminase, LEA14 and BoPep4.</p>
         <ul class="bp3-facts">
-          <li>Six BoPep4 cassettes ordered, tags off Asn23</li>
-          <li>Nine 30&nbsp;ns trajectories behind the model</li>
+          <li>Six BoPep4 cassettes ordered, N-terminal tags</li>
+          <li>Nine 30&nbsp;ns trajectories, no affinity measured</li>
         </ul>
-        <p class="bp3-open">ACC deaminase is the only one to reach a plant, and that blot read negative.</p>
+        <p class="bp3-open">ACC deaminase is the only one sprayed on plants, and the blot found none in the prep.</p>
       </article>
 
       <!-- ── joint · the switch and the cargo ─────────────────────────────── -->
@@ -214,6 +213,7 @@
       <div class="bp3-hub" data-node="plant" tabindex="0" style="--i:6">
         <span class="bp3-disc"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-rescue"/></svg></span>
         <span class="bp3-hub__name">Plant protection</span>
+        <p class="bp3-hub__what">The three parts are for this: a root that survives salt.</p>
 
         <!-- Our own salt ladder: experiment set 6, day 6, 3 August 2026. Four
              single readings. n is recorded nowhere and there is no replicate,
@@ -249,9 +249,9 @@
     </div>
 
     <div class="bp3-foot">
-      <p>The corners are built objects with our own numbers behind them. The joints are real
-      in DNA and in hardware, and no measurement has closed one yet: a <i>rust mark</i> says
-      where.</p>
+      <p>Three parts are built and measured. The three mechanisms that join them exist in DNA
+      and in hardware, and not one of them has been measured working yet. A <i>rust mark</i>
+      says where.</p>
       <p><a href="https://timmy97-tw.github.io/releaf-wiki/#bigpicture">The long version, twenty-nine pieces of work &rarr;</a></p>
     </div>
 

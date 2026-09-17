@@ -9,14 +9,14 @@
  * wiki's own tokens.css, which this file reads rather than forks.
  *
  * =============================================================================
- * ReLeaf: the big picture, V3 — the triangle
+ * ReLeaf: the big picture, V3 · the triangle
  * -----------------------------------------------------------------------------
  * V2 ran five noun steps down a vertical trunk with twenty-nine pieces of work
- * converging on them, and it stood 1500px tall on a 1440 screen. V3 answers one
- * question instead, and answers it inside one screen: how do the three halves
- * of this project hold on to each other.
+ * converging on them, and it stood 1503px tall on a 1440 screen. V3 asks one
+ * question and answers it inside one screen: how do the three halves of this
+ * project hold on to each other.
  *
- * THE ONE-SCREEN RULE IS STRUCTURAL, NOT A MEDIA QUERY. The figure is a drawing
+ * THE ONE-SCREEN RULE IS STRUCTURAL. The figure is a drawing
  * on a fixed canvas of 1320 x 600 design pixels. The stage is never wider than
  * the column and never taller than what is left of the viewport once the nav,
  * the head and the footing are taken out, so its width is
@@ -30,9 +30,8 @@
  * markup re-lays as a column, because scaling past that point puts the type
  * under reading size.
  *
- * THE EDGES ARE THE ARGUMENT. Three cards on their own would be a feature grid
- * bent into a triangle. What makes this worth drawing is that each pair of
- * corners is joined by one real mechanism: the promoter and the protectant are
+ * THE EDGES ARE THE ARGUMENT. Each pair of corners is joined by one real
+ * mechanism, and that is what makes the shape worth drawing: the promoter and the protectant are
  * the same plasmid, the 0.2 um membrane is containment and delivery at once,
  * and the light array answers to the vessel's own telemetry. Each edge carries
  * its own label and is focusable in its own right, and the tab order walks the
@@ -137,7 +136,8 @@ section.bp3 {
 }
 
 /* Past the text column's width the drawing is allowed out of it, because a
-   figure is a drawing and not a page width. 1420 is V2's own ceiling, kept so
+   figure is a drawing, and a drawing is not a page width. 1420 is V2's own
+   ceiling, kept so
    the two figures sit on the same measure when they are seen together. */
 @media (min-width: 84rem) {
   .bp3-stage {
@@ -360,7 +360,7 @@ section.bp3 {
 .bp3-go {
   margin-left: auto;
   align-self: center;
-  font-size: calc(12.5 * var(--k));
+  font-size: calc(13.5 * var(--k));
   font-weight: 600;
   color: var(--leaf-700);
   text-decoration: none;
@@ -382,22 +382,22 @@ section.bp3 {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: calc(5 * var(--k));
+  gap: calc(4 * var(--k));
   transition: opacity var(--bp3-short) var(--bp3-ease);
 }
 
 .bp3-disc {
   display: grid;
   place-items: center;
-  width: calc(72 * var(--k));
-  height: calc(72 * var(--k));
+  width: calc(64 * var(--k));
+  height: calc(64 * var(--k));
   border-radius: 50%;
   background: var(--leaf-900);
   box-shadow: 0 0 0 calc(9 * var(--k)) var(--leaf-50);
   transition: box-shadow var(--bp3-short) var(--bp3-ease);
 }
 
-.bp3-disc .ico { width: calc(38 * var(--k)); height: calc(38 * var(--k)); }
+.bp3-disc .ico { width: calc(34 * var(--k)); height: calc(34 * var(--k)); }
 
 .bp3-hub__name {
   font-family: var(--font-display);
@@ -423,7 +423,7 @@ section.bp3 {
    replicates to draw them from. */
 .bp3-ladder {
   margin: calc(4 * var(--k)) 0 calc(2 * var(--k));
-  width: calc(230 * var(--k));
+  width: calc(212 * var(--k));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -436,16 +436,20 @@ section.bp3 {
 .bp3-ladder__bar rect { fill: var(--bp3-wire); }
 .bp3-ladder__bar rect.is-control { fill: var(--leaf-700); }
 
+/* These are SVG user units, so what a reader sees is this size times the SVG's
+   own width over its viewBox, which is 212/230. 14.6 user units is therefore
+   13.5 design pixels rendered, the same as the caption under it. Change the
+   ladder's width and this number has to change with it. */
 .bp3-ladder__val text {
   fill: var(--leaf-900);
-  font-size: 12.5px;
+  font-size: 14.6px;
   font-weight: 700;
   text-anchor: middle;
   font-variant-numeric: tabular-nums;
 }
 
 .bp3-ladder figcaption {
-  font-size: calc(12.5 * var(--k));
+  font-size: calc(13.5 * var(--k));
   line-height: 1.26;
   color: var(--gray-500);
   font-variant-numeric: tabular-nums;
@@ -466,7 +470,7 @@ section.bp3 {
 .bp3-edge--r { left: calc(980 * var(--k)); top: calc(232 * var(--k)); }
 /* the bottom joint sits IN the break in its own wire, the way a drawing breaks
    a dimension line around its figure. Move it and the break moves too. */
-.bp3-edge--b { left: calc(496 * var(--k)); top: calc(486 * var(--k)); width: calc(328 * var(--k)); text-align: center; align-items: center; }
+.bp3-edge--b { left: calc(496 * var(--k)); top: calc(494 * var(--k)); width: calc(328 * var(--k)); text-align: center; align-items: center; }
 
 .bp3-edge__name {
   font-size: calc(14.5 * var(--k));
@@ -684,6 +688,7 @@ section.bp3 {
   .bp3-disc .ico { width: 22px; height: 22px; }
   .bp3-hub__name { color: var(--white); font-size: .9375rem; }
   .bp3-ladder { width: 150px; margin: 0 0 0 auto; gap: 0; }
+  .bp3-ladder__val text { font-size: 20px; }   /* 150px wide: 13px rendered */
   .bp3-ladder__rule { stroke: #2f5c45; }
   .bp3-ladder__bar rect { fill: #6f9a83; }
   .bp3-ladder__bar rect.is-control { fill: var(--leaf-200); }
@@ -718,6 +723,7 @@ section.bp3 {
   .bp3-corner__name { font-size: 1rem; }
   .bp3-corner__what, .bp3-facts, .bp3-open, .bp3-edge { font-size: .8125rem; }
   .bp3-ladder { width: 168px; }
+  .bp3-ladder__val text { font-size: 18px; }   /* 168px wide: 13px rendered */
 }
 
 /* ═══ short screens ═══════════════════════════════════════════════════════
@@ -745,5 +751,4 @@ section.bp3 {
   .bp3-head { grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); }
   .bp3 h2.band__title { font-size: 1.3125rem; }
   .bp3-foot { margin-top: 6px; }
-}
 }

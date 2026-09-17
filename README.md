@@ -14,7 +14,7 @@ Drawn on the wiki's own design tokens, copied unmodified from
 [`releaf-wiki`](https://github.com/Timmy97-TW/releaf-wiki) at `assets/css/tokens.css`, with the same
 self-hosted Inter. Nothing here forks the palette.
 
-## What changed, and what it costs
+## What changed
 
 V2 is twenty-nine pieces of work hanging off five steps, and on a 1440 screen it stands 1503px tall.
 It is a record of a year. A judge who has ninety seconds does not read a record of a year.
@@ -33,13 +33,12 @@ carries the evidence. The last line of the figure points at V2 for the long vers
 | | |
 |---|---|
 | **Optogenetic control** | A green-light switch built into *B. subtilis*. Four Level 1 modules built and sequenced. No induction run exists anywhere. |
-| **Bioreactor** | A hollow-fibre vessel built from nothing. 0.2 µm across 150 cm², 2 132 readings over 336 h. The membrane and the photometer have never run as one machine. |
-| **Bioprotectant** | ACC deaminase, LEA14 and BoPep4. Six cassettes ordered, nine 30 ns trajectories. Only ACC deaminase has met a plant, and that blot read negative. |
+| **Bioreactor** | A vessel that grows the cells and holds them: 0.2 µm across 150 cm², 2 132 readings over 336 h. The membrane and the photometer have never run as one machine. |
+| **Bioprotectant** | ACC deaminase, LEA14 and BoPep4. Six cassettes ordered with N-terminal tags, nine 30 ns trajectories with no affinity measured. ACC deaminase is the only one sprayed on plants, and the blot found none in the prep. |
 | **Plant protection** *(centre)* | Our own salt ladder: 75.0, 34.8, 11.0 and 1.8 mm of root at 0 to 150 mM NaCl, four single readings. No protectant has rescued a plant yet. |
 
-**The edges are the argument.** Three cards on their own would be a feature grid bent into a
-triangle. What makes this figure worth drawing is that each pair of corners is joined by one real
-mechanism, and each joint is a labelled object in its own right:
+**The edges are the argument.** Each pair of corners is joined by one real mechanism, and that is
+what makes the shape worth drawing. Each joint is a labelled object in its own right:
 
 - **The switch and the cargo.** The promoter the light drives and the protectant it makes are one
   plasmid, sequenced clean on 22 July. It has never been induced.
@@ -48,15 +47,14 @@ mechanism, and each joint is a labelled object in its own right:
 - **Cells stay, protein leaves.** One 0.2 µm pore holds the rods in and passes a 37.6 kDa enzyme.
   Shell fluid plated clean on 6 June; nothing has been measured crossing.
 
-That is the sentence the whole figure exists to carry, and it is in the footing under it: **the
-corners are built objects with our own numbers behind them, and the three joints between them are
-real in DNA and in hardware with no measurement closing any of them yet.** A judge who reads only
-the footing has the state of the project.
+The footing says the same thing in words a stranger can read: three parts are built and measured,
+the three mechanisms that join them exist in DNA and in hardware, and not one of them has been
+measured working yet. A judge who reads only the footing has the state of the project.
 
 ## One screen, structurally
 
-The requirement was that nobody has to scroll to see all of it. That is enforced by construction
-rather than by media queries that have to be re-tuned every time a browser grows a toolbar.
+The requirement was that nobody has to scroll to see all of it. Construction enforces it, so no
+media query has to be re-tuned when a browser grows a toolbar.
 
 1. The section is a column that owns the viewport: `height: calc(100svh - var(--bp3-nav))`, with
    head, stage and footing stacked inside it.
@@ -77,22 +75,24 @@ are what give `100cqh` something to measure. Change either and the drawing rende
 tall. The `@supports` fallback does not catch that case, because the units are supported; it only
 catches a browser with no size containment at all, where an arithmetic estimate takes over.
 
-**Measured on this build, which reserves the wiki's own 68px of nav:**
+**Measured on this build, which reserves the wiki's own 68px of nav.** Body type is the facts and
+the limits at 14 design pixels; the smallest column is the two things set below them, the link out
+of each card and the ladder's caption and numbers, all at 13.5.
 
-| viewport | the drawing | scale | smallest type | scrolls |
-|---|---|---|---|---|
-| 1920 × 1080 | 1420 wide | 1.08 | 15.1px | no |
-| 1512 × 850 | 1181 | 0.89 | 12.5px | no |
-| 1440 × 900 | 1288 | 0.98 | 13.7px | no |
-| 1366 × 768 | 1209 | 0.92 | 12.8px | no |
-| 1280 × 720 | 1130 | 0.86 | 12.0px | no |
-| 1152 × 800 | 1088 | 0.82 | 11.5px | no |
-| 1151 × 800 | two columns | — | 13px | no |
-| 1024 × 768 | two columns | — | 13px | no, with 0px to spare |
-| 768 × 1024 | two columns | — | 13px | no |
-| 375 × 812 | one column | — | 13px | **yes, about 1.5 screens** |
+| viewport | the drawing | scale | body type | smallest | scrolls |
+|---|---|---|---|---|---|
+| 1920 × 1080 | 1420 wide | 1.08 | 15.1px | 14.6px | no |
+| 1512 × 850 | 1181 | 0.89 | 12.5px | 12.0px | no |
+| 1440 × 900 | 1288 | 0.98 | 13.7px | 13.2px | no |
+| 1366 × 768 | 1209 | 0.92 | 12.8px | 12.4px | no |
+| 1280 × 720 | 1130 | 0.86 | 12.0px | 11.6px | no |
+| 1152 × 800 | 1088 | 0.82 | 11.5px | 11.1px | no |
+| 1151 × 800 | two columns | - | 13px | 13px | no |
+| 1024 × 768 | two columns | - | 13px | 13px | no, with 0px to spare |
+| 768 × 1024 | two columns | - | 13px | 13px | no |
+| 375 × 812 | one column | - | 13px | 13px | **yes, about 1.5 screens** |
 
-**Three layouts, and the widths are solved rather than chosen.**
+**Three layouts, and the widths are solved by where type stops being readable.**
 
 - **From 1152px** the triangle is drawn, because that is the width at which the fitted drawing still
   keeps its smallest type at 11.5px. Below it the type would go under reading size, which is where a
@@ -115,9 +115,9 @@ the second fact on each corner.
 - **Point at a corner** and it lights the two joints it sits on, the wires under them, and the
   corners on the far side. The plant lights with every corner, because every corner is for it.
 - **Point at a joint** and both of its ends light.
-- **Three steps of emphasis, not two.** With only seven objects on the stage a simple on/off dim is
-  almost no signal, so the held thing is at full strength, what it reaches sits at 0.72, and the
-  rest drops to 0.34.
+- **Three steps of emphasis.** With only seven objects on the stage a simple on/off dim is almost
+  no signal, so the held thing is at full strength, what it reaches sits at 0.72, and the rest
+  drops to 0.34.
 - **Keyboard reaches all of it**, and the tab order walks the triangle: corner, joint, corner,
   joint, corner, joint, then the plant. That is also the DOM order, which is what the column layout
   stacks, so on a phone the last joint closes the loop.
@@ -126,11 +126,11 @@ the second fact on each corner.
   neighbours, and the frame in between has everything un-held, so dragging across the figure
   strobes. If this figure ever flickers, that is the thing that broke.
 
-## The centre carries a measurement
+## The centre
 
-The middle of the triangle is not a label. It is the one solid number set this project has on
-plants: **experiment set 6, day 6, 3 August 2026**, root length 75.0, 34.8, 11.0 and 1.8 mm at 0,
-75, 100 and 150 mM NaCl, drawn as four bars with the number over each one.
+The middle of the triangle carries the one solid number set this project has on plants: experiment
+set 6, day 6, 3 August 2026, root length 75.0, 34.8, 11.0 and 1.8 mm at 0, 75, 100 and 150 mM NaCl,
+drawn as four bars with the number over each one.
 
 Three things about it are deliberate:
 
@@ -142,7 +142,7 @@ Three things about it are deliberate:
 - **The centre is the aim, and it says so.** Under the ladder, *no protectant has rescued a plant
   yet*. The assay works; the rescue has not happened.
 
-## Colour, and the two systems that do not overlap
+## Colour
 
 **Leaf is structure.** The cards, the hairlines, the wires, the bullets. The wire colour is
 `--leaf-500` because a joint is a meaningful graphic and has to clear 3:1 against white; the paler
@@ -179,13 +179,13 @@ twenty-nine tiles drift; three corners do not.
 
 **Every fact has to fit on one line.** The card is a fixed 404 × 196 design pixels and the text
 column inside it is 364, which is about 52 characters at the fact size. A fact that wraps costs the
-card 18 design pixels it does not have, and the card will overflow rather than grow. Check it after
+card 18 design pixels it does not have, and the card overflows instead of growing. Check it after
 an edit: every `.bp3-corner` should have `scrollHeight === clientHeight`.
 
 **Do not fill a gap with a guess, and do not tidy a rust line away.** Never invent a number, a
 quote, a date or a result. This figure is where a judge will check.
 
-## Two things a future edit is likely to get wrong
+## Two things to get right
 
 **The word AI.** The project abstract calls ReLeaf "an AIoT-driven optogenetic bioreactor system".
 What exists behind that phrase is an SHT31 reading temperature and a straight line between two

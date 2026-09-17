@@ -32,24 +32,25 @@ carries the evidence. The last line of the figure points at V2 for the long vers
 
 | | |
 |---|---|
-| **Optogenetic control** | A green-light switch built into *B. subtilis*. Four Level 1 modules built and sequenced. No induction run exists anywhere. |
+| **Optogenetic control** | A green-light switch built into *B. subtilis*. Four Level 1 modules built and sequenced, on 520 and 660 nm LEDs. No induction run exists anywhere. |
 | **Bioreactor** | A vessel that grows the cells and holds them: 0.2 µm across 150 cm², 2 132 readings over 336 h. The membrane and the photometer have never run as one machine. |
-| **Bioprotectant** | ACC deaminase, LEA14 and BoPep4. Six cassettes ordered with N-terminal tags, nine 30 ns trajectories with no affinity measured. ACC deaminase is the only one sprayed on plants, and the blot found none in the prep. |
+| **Bioprotectant** | ACC deaminase, LEA14 and BoPep4. Six cassettes ordered with N-terminal tags, nine 30 ns trajectories with no affinity measured. No protectant has been measured leaving a cell, and the blot found none in the prep. |
 | **Plant protection** *(centre)* | Our own salt ladder: 75.0, 34.8, 11.0 and 1.8 mm of root at 0 to 150 mM NaCl, four single readings. No protectant has rescued a plant yet. |
 
 **The edges are the argument.** Each pair of corners is joined by one real mechanism, and that is
 what makes the shape worth drawing. Each joint is a labelled object in its own right:
 
 - **The switch and the cargo.** The promoter the light drives and the protectant it makes are one
-  plasmid, sequenced clean on 22 July. It has never been induced.
+  plasmid, sequenced with no mutations. It has never been induced.
 - **The array and the vessel.** Green light on one side, the vessel's own telemetry at 1 Hz on the
   other. The reactor's lamp is not built, and the loop has never closed.
-- **Cells stay, protein leaves.** One 0.2 µm pore holds the rods in and passes a 37.6 kDa enzyme.
-  Shell fluid plated clean on 6 June; nothing has been measured crossing.
+- **Cells stay, protein leaves.** One 0.2 µm pore holds the rods in and is wide enough to pass a
+  37.6 kDa enzyme. Shell fluid plated clean on 6 June; nothing has been measured crossing.
 
-The footing says the same thing in words a stranger can read: three parts are built and measured,
-the three mechanisms that join them exist in DNA and in hardware, and not one of them has been
-measured working yet. A judge who reads only the footing has the state of the project.
+The footing says it in words a stranger can read, and it separates the three: one joint is real in
+DNA, one is real in hardware, and the third is still on paper, because the reactor has no lamp of
+its own. Not one has been measured working. A judge who reads only the footing has the state of the
+project.
 
 ## One screen, structurally
 
@@ -217,6 +218,9 @@ distinction has to survive.
    absolute, at `timmy97-tw.github.io/releaf-wiki/…`, because the standalone build has no sub-pages.
 7. `--bp3-nav` is 68px, which is the wiki's own `--nav-h`. If the nav's height ever changes, this is
    the one number in the figure that has to change with it.
+8. **The section and V2 both answer to `id="bigpicture"`.** If V3 replaces V2, keep the id and drop
+   the footing's link to the long version, because there will not be one on that page. If the two
+   ship together, rename this one and re-point the nav.
 
 Decide before merging whether V3 replaces V2 or sits above it. They argue at different altitudes and
 they can both be true, but they cannot both be the closing band.

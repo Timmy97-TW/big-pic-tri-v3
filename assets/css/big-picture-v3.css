@@ -255,7 +255,8 @@ section.bp3 {
 .bp3-corner {
   position: absolute;
   width: calc(404 * var(--k));
-  height: calc(196 * var(--k));
+  min-height: calc(196 * var(--k));
+  z-index: 1;
   padding: calc(16 * var(--k)) calc(20 * var(--k)) calc(13 * var(--k));
   display: flex;
   flex-direction: column;
@@ -293,6 +294,7 @@ section.bp3 {
 .bp3-well .ico { width: calc(21 * var(--k)); height: calc(21 * var(--k)); }
 
 .bp3-corner__name {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: calc(19.5 * var(--k));
@@ -400,6 +402,7 @@ section.bp3 {
 .bp3-disc .ico { width: calc(34 * var(--k)); height: calc(34 * var(--k)); }
 
 .bp3-hub__name {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: calc(20 * var(--k));
@@ -473,6 +476,7 @@ section.bp3 {
 .bp3-edge--b { left: calc(496 * var(--k)); top: calc(494 * var(--k)); width: calc(328 * var(--k)); text-align: center; align-items: center; }
 
 .bp3-edge__name {
+  margin: 0;
   font-size: calc(14.5 * var(--k));
   font-weight: 700;
   line-height: 1.18;
@@ -490,6 +494,7 @@ section.bp3 {
 
 .bp3-edge__how i {
   font-style: normal;
+  font-weight: 600;
   color: var(--rust-700);
 }
 
@@ -498,33 +503,52 @@ section.bp3 {
    and everything it touches takes .is-rel. Nothing is hidden and nothing
    moves; the figure only changes what it emphasises. */
 
-/* Three steps, because with only seven objects on the stage a two-step dim is
-   almost no signal at all: the thing held, the things it reaches, everything
-   else. */
-.bp3-tri.is-holding .bp3-corner,
-.bp3-tri.is-holding .bp3-edge,
-.bp3-tri.is-holding .bp3-hub { opacity: .34; }
+/* NOTHING HERE FADES TEXT. An earlier pass dimmed the un-held objects to 0.34
+   opacity, and the arithmetic says that is not available: to keep the smallest
+   type on this figure above 4.5:1 while fading it, the dim cannot go below 0.84,
+   which is not a signal at all. So emphasis is carried by the ground, the
+   border and the hue, all of which can move as far as they like without taking
+   a word below reading contrast.
 
-.bp3-tri.is-holding .is-rel { opacity: .72; }
-.bp3-tri.is-holding .is-lit { opacity: 1; }
+     held      pale leaf ground, leaf-500 border, a lift under it
+     reached   pale leaf ground, a mid border
+     the rest  white ground, hairline border, and its words in grey
 
-.bp3-corner.is-lit {
+   The wires are left alone except for the two that light, because a hairline
+   that is already drawn does not need to be taken away to make another one
+   louder. */
+
+.bp3-tri.is-holding .bp3-corner {
+  background: var(--white);
+  border-color: var(--gray-200);
+  box-shadow: none;
+}
+
+.bp3-tri.is-holding .bp3-corner.is-rel {
+  background: var(--leaf-50);
+  border-color: var(--bp3-leaf-400);
+  box-shadow: var(--bp3-lift);
+}
+
+.bp3-tri.is-holding .bp3-corner.is-lit {
+  background: var(--leaf-50);
   border-color: var(--leaf-500);
   box-shadow: var(--bp3-lift-lit);
 }
 
-.bp3-corner.is-rel { border-color: var(--bp3-leaf-400); }
+.bp3-tri.is-holding .bp3-edge .bp3-edge__name,
+.bp3-tri.is-holding .bp3-edge .bp3-edge__how { color: var(--gray-500); }
 
-.bp3-edge.is-lit .bp3-edge__name { color: var(--amber-700); }
-.bp3-edge.is-lit .bp3-edge__how  { color: var(--gray-700); }
+.bp3-tri.is-holding .bp3-edge.is-lit .bp3-edge__name { color: var(--amber-700); }
+.bp3-tri.is-holding .bp3-edge.is-lit .bp3-edge__how  { color: var(--gray-700); }
+.bp3-tri.is-holding .bp3-edge.is-rel .bp3-edge__name { color: var(--leaf-700); }
+.bp3-tri.is-holding .bp3-edge.is-rel .bp3-edge__how  { color: var(--gray-600); }
 
 .bp3-hub.is-lit .bp3-disc,
 .bp3-hub.is-rel .bp3-disc { box-shadow: 0 0 0 calc(9 * var(--k)) var(--leaf-200); }
 
 .bp3-wire.is-lit { stroke: var(--bp3-wire-lit); stroke-width: 2.6; }
 .bp3-dot.is-lit  { fill: var(--bp3-wire-lit); }
-.bp3-tri.is-holding .bp3-wire:not(.is-lit),
-.bp3-tri.is-holding .bp3-dot:not(.is-lit) { opacity: .4; }
 
 /* focus is never animated, and focus runs the same code path as pointing */
 .bp3-corner:focus-visible,
@@ -532,6 +556,7 @@ section.bp3 {
 .bp3-hub:focus-visible {
   outline: 2px solid var(--leaf-700);
   outline-offset: calc(5 * var(--k));
+  z-index: 2;
 }
 
 /* ═══ the footing ═════════════════════════════════════════════════════════ */

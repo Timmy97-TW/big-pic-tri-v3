@@ -108,7 +108,14 @@
 
   /* pointing. One listener, on the container. */
   tri.addEventListener("pointerover", function (e) { hold(subject(e.target)); });
-  tri.addEventListener("pointerleave", clear);
+
+  /* A tap fires pointerover and then, on most touch browsers, pointerleave a
+     moment later, which would take the highlight away before it was read. A
+     touch pointer lets go when the next tap lands somewhere else, which the
+     document listener below handles. */
+  tri.addEventListener("pointerleave", function (e) {
+    if (e.pointerType !== "touch") clear();
+  });
 
   /* focus runs the same code path as pointing, so the keyboard reaches all of
      it: three corners, three joints, the plant. */
@@ -132,6 +139,15 @@
     if (shown) return;
     shown = true;
     tri.classList.add("is-in");
+
+    /* The entrance keyframes fill forwards, and a filling animation outranks
+       every normal declaration that follows it, including the whole holding
+       state. So once the entrance has run, both classes come off and the
+       figure goes back to being styled by ordinary rules. Without this the
+       emphasis silently does nothing. */
+    window.setTimeout(function () {
+      tri.classList.remove("is-armed", "is-in");
+    }, 420 + 7 * 55 + 80);
   }
 
   var io = new IntersectionObserver(function (entries) {

@@ -6,7 +6,7 @@
   <title>The big picture &middot; V3 &middot; ReLeaf &middot; GEMS Taiwan, iGEM 2026</title>
   <meta name="description" content="Three parts of the ReLeaf system, the joint each pair shares, and the plant in the middle. One screen, nothing hidden." />
   <link rel="stylesheet" href="assets/css/tokens.css" />
-  <link rel="stylesheet" href="assets/css/big-picture-v3.css?v=20" />
+  <link rel="stylesheet" href="assets/css/big-picture-v3.css?v=22" />
   <style>
     /* Standalone shell only. The wiki supplies all of this through page.css and
        home.css, so everything in this block is deleted at merge. */
@@ -144,10 +144,10 @@
       </svg>
 
       <!-- ── corner · optogenetic control ─────────────────────────────────── -->
-      <article class="bp3-corner bp3-corner--top" data-node="opto" tabindex="0" style="--i:0">
+      <article class="bp3-corner bp3-corner--top" data-node="opto" aria-labelledby="bp3-n-opto" tabindex="0" style="--i:0">
         <div class="bp3-corner__head">
           <span class="bp3-well"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-led"/></svg></span>
-          <span class="bp3-corner__name">Optogenetic control</span>
+          <h3 class="bp3-corner__name" id="bp3-n-opto">Optogenetic control</h3>
           <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/engineering/">Engineering &rarr;</a>
         </div>
         <p class="bp3-corner__what">A green-light switch built into <i>B.&nbsp;subtilis</i>.</p>
@@ -159,17 +159,17 @@
       </article>
 
       <!-- ── joint · the array and the vessel ─────────────────────────────── -->
-      <div class="bp3-edge bp3-edge--l" data-edge="opto-reactor" data-ends="opto reactor" tabindex="0" style="--i:1">
-        <span class="bp3-edge__name">The array and the vessel</span>
+      <div class="bp3-edge bp3-edge--l" role="group" aria-labelledby="bp3-j-opto-reactor" data-edge="opto-reactor" data-ends="opto reactor" tabindex="0" style="--i:1">
+        <h4 class="bp3-edge__name" id="bp3-j-opto-reactor">The array and the vessel</h4>
         <p class="bp3-edge__how">Green light on one side, the vessel&rsquo;s own telemetry at 1&nbsp;Hz on the other.
         <i>The reactor&rsquo;s lamp is not built, and the loop has never closed.</i></p>
       </div>
 
       <!-- ── corner · bioreactor ──────────────────────────────────────────── -->
-      <article class="bp3-corner bp3-corner--left" data-node="reactor" tabindex="0" style="--i:2">
+      <article class="bp3-corner bp3-corner--left" data-node="reactor" aria-labelledby="bp3-n-reactor" tabindex="0" style="--i:2">
         <div class="bp3-corner__head">
           <span class="bp3-well"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-reactor"/></svg></span>
-          <span class="bp3-corner__name">Bioreactor</span>
+          <h3 class="bp3-corner__name" id="bp3-n-reactor">Bioreactor</h3>
           <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/hardware/">Hardware &rarr;</a>
         </div>
         <p class="bp3-corner__what">A vessel that grows the cells and holds them.</p>
@@ -181,17 +181,17 @@
       </article>
 
       <!-- ── joint · cells stay, protein leaves ───────────────────────────── -->
-      <div class="bp3-edge bp3-edge--b" data-edge="reactor-protectant" data-ends="reactor protectant" tabindex="0" style="--i:3">
-        <span class="bp3-edge__name">Cells stay, protein leaves</span>
+      <div class="bp3-edge bp3-edge--b" role="group" aria-labelledby="bp3-j-reactor-protectant" data-edge="reactor-protectant" data-ends="reactor protectant" tabindex="0" style="--i:3">
+        <h4 class="bp3-edge__name" id="bp3-j-reactor-protectant">Cells stay, protein leaves</h4>
         <p class="bp3-edge__how">One 0.2&nbsp;&micro;m pore holds the rods in and is wide enough to pass a 37.6&nbsp;kDa enzyme.
         <i>Shell fluid plated clean on 6&nbsp;June; nothing has been measured crossing.</i></p>
       </div>
 
       <!-- ── corner · bioprotectant ───────────────────────────────────────── -->
-      <article class="bp3-corner bp3-corner--right" data-node="protectant" tabindex="0" style="--i:4">
+      <article class="bp3-corner bp3-corner--right" data-node="protectant" aria-labelledby="bp3-n-protectant" tabindex="0" style="--i:4">
         <div class="bp3-corner__head">
           <span class="bp3-well"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-peptide"/></svg></span>
-          <span class="bp3-corner__name">Bioprotectant</span>
+          <h3 class="bp3-corner__name" id="bp3-n-protectant">Bioprotectant</h3>
           <a class="bp3-go" href="https://timmy97-tw.github.io/releaf-wiki/peptide-design/">Peptide design &rarr;</a>
         </div>
         <p class="bp3-corner__what">Three molecules: ACC deaminase, LEA14 and BoPep4.</p>
@@ -203,16 +203,16 @@
       </article>
 
       <!-- ── joint · the switch and the cargo ─────────────────────────────── -->
-      <div class="bp3-edge bp3-edge--r" data-edge="protectant-opto" data-ends="protectant opto" tabindex="0" style="--i:5">
-        <span class="bp3-edge__name">The switch and the cargo</span>
+      <div class="bp3-edge bp3-edge--r" role="group" aria-labelledby="bp3-j-protectant-opto" data-edge="protectant-opto" data-ends="protectant opto" tabindex="0" style="--i:5">
+        <h4 class="bp3-edge__name" id="bp3-j-protectant-opto">The switch and the cargo</h4>
         <p class="bp3-edge__how">The promoter the light drives and the protectant it makes are one plasmid, sequenced with no mutations.
         <i>It has never been induced.</i></p>
       </div>
 
       <!-- ── the middle ───────────────────────────────────────────────────── -->
-      <div class="bp3-hub" data-node="plant" tabindex="0" style="--i:6">
+      <div class="bp3-hub" role="group" aria-labelledby="bp3-n-plant" data-node="plant" tabindex="0" style="--i:6">
         <span class="bp3-disc"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-rescue"/></svg></span>
-        <span class="bp3-hub__name">Plant protection</span>
+        <h3 class="bp3-hub__name" id="bp3-n-plant">Plant protection</h3>
         <p class="bp3-hub__what">The three parts are for this: a root that survives salt.</p>
 
         <!-- Our own salt ladder: experiment set 6, day 6, 3 August 2026. Four

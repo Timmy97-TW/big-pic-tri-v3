@@ -102,6 +102,14 @@
     tri.classList.add("is-holding");
   }
 
+  /* Letting go of the pointer returns the figure to whatever the keyboard is
+     holding, so a mouse crossing the page cannot take a focused card's
+     emphasis away and leave its focus ring standing alone. */
+  function release() {
+    var focused = tri.contains(document.activeElement) && subject(document.activeElement);
+    if (focused) hold(focused); else clear();
+  }
+
   function subject(el) {
     return el && el.closest ? el.closest("[data-node], [data-edge]") : null;
   }
@@ -120,7 +128,7 @@
      touch pointer lets go when the next tap lands somewhere else, which the
      document listener below handles. */
   tri.addEventListener("pointerleave", function (e) {
-    if (e.pointerType !== "touch") clear();
+    if (e.pointerType !== "touch") release();
   });
 
   /* focus runs the same code path as pointing, so the keyboard reaches all of

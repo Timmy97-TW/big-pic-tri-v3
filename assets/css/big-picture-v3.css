@@ -6,7 +6,7 @@
  *
  * The two carry-overs the slop test flags and the pre-flight rule preserves:
  * the display face is Inter and the paper is white. Both are locked by the
- * wiki's own tokens.css, which this file reads rather than forks.
+ * wiki's own tokens.css, which this file reads and does not fork.
  *
  * =============================================================================
  * ReLeaf: the big picture, V3 · the triangle
@@ -16,25 +16,24 @@
  * question and answers it inside one screen: how do the three halves of this
  * project hold on to each other.
  *
- * THE ONE-SCREEN RULE IS STRUCTURAL. The figure is a drawing
- * on a fixed canvas of 1320 x 600 design pixels. The stage is never wider than
- * the column and never taller than what is left of the viewport once the nav,
- * the head and the footing are taken out, so its width is
+ * THE ONE-SCREEN RULE IS STRUCTURAL. The figure is a drawing on a fixed canvas
+ * of 1320 x 600 design pixels, sized against the stage it sits in, which is a
+ * size container holding exactly what the nav, the head and the footing leave:
  *
- *     min(100%, (100svh - nav - head - frame) * 1320/600)
+ *     width: min(100cqw, 100cqh * 1320/600)
  *
  * with aspect-ratio pinning the height to it. Everything inside is written as a
  * design pixel times --k, one design pixel expressed in container units, so the
- * whole drawing scales as one object. Overflow is impossible: add a line of
- * text and the drawing gets smaller, it never spills. Below 72rem the same
- * markup re-lays as a column, because scaling past that point puts the type
- * under reading size.
+ * whole drawing scales as one object. In the triangle, overflow is impossible:
+ * add a line of text and the drawing gets smaller, it never spills. Under
+ * 1152px wide or 720px tall the same markup re-lays as a list, because the
+ * fitted type would go under reading size, and a list is as tall as its content.
  *
  * THE EDGES ARE THE ARGUMENT. Each pair of corners is joined by one real
- * mechanism, and that is what makes the shape worth drawing: the promoter and the protectant are
- * the same plasmid, the 0.2 um membrane is containment and delivery at once,
- * and the light array answers to the vessel's own telemetry. Each edge carries
- * its own label and is focusable in its own right, and the tab order walks the
+ * mechanism, and that is what makes the shape worth drawing: the promoter and
+ * the protectant are the same plasmid, the 0.2 um membrane is containment and
+ * delivery at once, and the light array answers to the vessel's telemetry. Each
+ * joint carries its own label and is focusable in its own right, and the tab order walks the
  * triangle: corner, joint, corner, joint, corner, joint, then the plant.
  *
  * RULES THAT SHOULD SURVIVE THE NEXT EDIT
@@ -137,8 +136,7 @@ section.bp3 {
 
 /* Past the text column's width the drawing is allowed out of it, because a
    figure is a drawing, and a drawing is not a page width. 1420 is V2's own
-   ceiling, kept so
-   the two figures sit on the same measure when they are seen together. */
+   ceiling, kept so the two figures sit on the same measure. */
 @media (min-width: 84rem) {
   .bp3-stage {
     width: min(1420px, calc(100vw - 80px));
@@ -152,7 +150,7 @@ section.bp3 {
 .bp3 .ico { display: block; fill: none; }
 
 /* ═══ the head ════════════════════════════════════════════════════════════
-   Two columns from 62rem so the heading and the reading line cost one band of
+   Two columns from 48rem so the heading and the reading line cost one band of
    height between them instead of two. */
 
 .bp3-head {
@@ -629,13 +627,13 @@ section.bp3 {
 
 /* ═══ narrow, portrait, and short ═════════════════════════════════════════
    The drawing needs width AND height to keep its type at reading size: under
-   1152px of width, or under about 704px of viewport height, the fitted canvas
+   1152px of width, or under 720px of viewport height, the fitted canvas
    puts the smallest type below 11px. Either one sends the same markup into a
    column. The DOM order is the walk around the triangle, corner then joint
    then corner, so the couplings still read as couplings and the last one
    closes the loop. Nothing is hidden in any of the three layouts. */
 
-@media (max-width: 71.999rem), (max-height: 43.999rem) {
+@media (max-width: 71.999rem), (max-height: 44.999rem) {
   section.bp3 { --bp3-pad: var(--sp-4); height: auto; }
 
   .bp3-stage { container-type: normal; display: block; }
@@ -739,7 +737,7 @@ section.bp3 {
    the pairing, so nothing here has to name an element. */
 
 @media (min-width: 48rem) and (max-width: 71.999rem),
-       (min-width: 48rem) and (max-height: 43.999rem) {
+       (min-width: 48rem) and (max-height: 44.999rem) {
   .bp3-tri {
     display: grid;
     grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);

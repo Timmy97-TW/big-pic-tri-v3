@@ -6,7 +6,7 @@
   <title>The big picture &middot; V3 &middot; ReLeaf &middot; GEMS Taiwan, iGEM 2026</title>
   <meta name="description" content="Three parts of the ReLeaf system, the joint each pair shares, and the plant in the middle. One screen, nothing hidden." />
   <link rel="stylesheet" href="assets/css/tokens.css" />
-  <link rel="stylesheet" href="assets/css/big-picture-v3.css?v=24" />
+  <link rel="stylesheet" href="assets/css/big-picture-v3.css?v=25" />
   <style>
     /* Standalone shell only. The wiki supplies all of this through page.css and
        home.css, so everything in this block is deleted at merge. */
@@ -45,9 +45,10 @@
      Reads assets/css/big-picture-v3.css and assets/js/big-picture-v3.js.
      Four rules govern every change:
 
-       1. ONE SCREEN, STRUCTURALLY. The drawing is a 1320x600 canvas scaled to
-          whatever the viewport has left. Adding a line of text makes the
-          drawing smaller; it never makes the section taller.
+       1. ONE SCREEN, STRUCTURALLY. From 1152px wide and 720px tall the drawing
+          is a 1320x600 canvas scaled to whatever the viewport has left: adding
+          a line of text makes it smaller, never taller. Below either threshold
+          it becomes a list, which is as tall as its content.
        2. THE EDGES ARE THE ARGUMENT. Each pair of corners shares one real
           mechanism, and that mechanism is a labelled, focusable object.
        3. NOTHING OPENS, and nothing is hidden. Pointing at a corner lights the
@@ -123,7 +124,7 @@
 
     <!-- The DOM order walks the triangle: corner, joint, corner, joint, corner,
          joint, then the plant. That is also the tab order, and it is what the
-         column layout under 62rem stacks, so the last joint closes the loop. -->
+         column layout under 72rem, or on a short window, stacks, so the last joint closes the loop. -->
     <div class="bp3-stage">
     <div class="bp3-tri" id="bp3-tri" role="group" aria-label="The ReLeaf system as three parts, the joint each pair shares, and the plant at the centre">
 

@@ -95,7 +95,7 @@ caption and numbers, all at 13.5.
 
 **Three layouts, and the widths are solved by where type stops being readable.**
 
-- **From 1152px wide and about 704px tall** the triangle is drawn. Those are the two numbers at
+- **From 1152px wide and 720px tall** the triangle is drawn. Those are the two numbers at
   which the fitted canvas still holds its body type at 11.5px. Below either one the type would go
   under reading size, which is where a figure stops being a figure. V2 turned at 1150 for the same
   reason, and this one turns on height as well, because a short window shrinks the drawing exactly
